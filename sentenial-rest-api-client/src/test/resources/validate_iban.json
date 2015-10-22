@@ -1,0 +1,13 @@
+{
+  "uri": "/v1/iban/validate",
+  "data": {
+    "uri": "/v1/iban/validate",
+    "iban": "BE87723540479194",
+    "domesticAccountNumber": "5404791",
+    "accountCountry": "BE",
+    "domesticBankCode": "723",
+    "domesticBranchCode": "",
+    "domesticCheckSum": "94",
+    "bic": "ABNABEBR"
+  }
+}
