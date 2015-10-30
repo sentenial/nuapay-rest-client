@@ -19,7 +19,7 @@ Java 6 or later.
 * Download the `jar` file  
 * Ensure the `jar` is on your classpath
 * Ensure you have the dependency `jar`s on your classpath
-    
+
 ### Tips
 
 * If for debug purposes you need to print content of HTTP requests / responses, then you can set following loggin level: 
