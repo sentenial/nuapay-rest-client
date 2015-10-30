@@ -10,8 +10,8 @@ Java 6 or later.
 * Apache Commons Codec
 * Apache Commons httpcomponents
 * Jackson
-* logback
 * slf4j
+* log4j
 
 
 ### Using 
@@ -20,6 +20,13 @@ Java 6 or later.
 * Ensure the `jar` is on your classpath
 * Ensure you have the dependency `jar`s on your classpath
     
+## Tips
+
+* If for debug purposes you need to print content of HTTP requests / responses, then you can set following loggin level: 
+
+```properties
+log4j.logger.org.apache.http=DEBUG
+```
 
 ### Example
 
