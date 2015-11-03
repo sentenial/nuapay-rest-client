@@ -18,12 +18,9 @@ public class RestClientSampleApp {
 
 	private static final Logger logger = LoggerFactory.getLogger(RestClientSampleApp.class);
 	
-
-	public final static String DEV_ENVIRONMENT_URL = "http://localhost:8080/origix-rest/api/v1";
-
 	public static void main(String[] args) {
 		
-		ServiceConfiguration serviceConfiguration = new ServiceConfiguration(DEV_ENVIRONMENT_URL);
+		ServiceConfiguration serviceConfiguration = new ServiceConfiguration(false);
 		serviceConfiguration.setApiKey("fd9d24268a21dce68cbddb99b96fdc5ec97c1e940b5c2415fe8231e69baec16b");
 
 		//mandateActions(creditorSchemeId, serviceConfiguration);
