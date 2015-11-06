@@ -62,7 +62,7 @@ public class MandateServiceDefault extends AbstractServiceDefault implements Man
 		
 		listMandatesRequestParameters = (listMandatesRequestParameters != null)? listMandatesRequestParameters: new ListMandatesRequestParameters();
 
-		String url = String.format(getApiUri() + LIST_MANDATES_BY_CREDITOR_SCHEME, creditorSchemeId) + listMandatesRequestParameters.generatePagingRequestParamsString();
+		String url = String.format(getApiUri() + LIST_MANDATES_BY_CREDITOR_SCHEME, creditorSchemeId) + listMandatesRequestParameters.generateRequestParamsString();		
 
 		return JsonUtils.fromJson(httpClient.get(url, headers()), ListMandatesResponse.class);
 	}
@@ -72,7 +72,7 @@ public class MandateServiceDefault extends AbstractServiceDefault implements Man
 
 		listMandatesRequestParameters = (listMandatesRequestParameters != null)? listMandatesRequestParameters: new ListMandatesRequestParameters();
 		
-		String url = getApiUri() + LIST_MANDATES + listMandatesRequestParameters.generatePagingRequestParamsString();
+		String url = getApiUri() + LIST_MANDATES + listMandatesRequestParameters.generateRequestParamsString();
 
 		return JsonUtils.fromJson(httpClient.get(url, headers()), ListMandatesResponse.class);
 	}
