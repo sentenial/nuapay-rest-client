@@ -47,7 +47,7 @@ public class PaymentSchedulesActions {
 		
 		PaymentScheduleResource paymentScheduleResponse = createPaymentScheduleResponse.getData();
 		
-		logger.info(createPaymentScheduleResponse.toString());
+		logger.info(paymentScheduleResponse.toString());
 		
 		return createPaymentScheduleResponse.getData();
 	}

@@ -16,7 +16,8 @@ Java 6 or later.
 
 ### Using 
     
-* Download the `jar` file  
+* Download source project
+* Generate `jar` file using `mvn clean package` command, then  
 * Ensure the `jar` is on your classpath
 * Ensure you have the dependency `jar`s on your classpath
 
@@ -97,7 +98,8 @@ public class RestClientSampleApp {
 						);
 
 		try{
-			CreateMandateResponse createMandateResponse = mandateService.createMandate("ybo8lg392q", createMandateRequest);
+			CreateMandateResponse createMandateResponse = 
+						mandateService.createMandate("ybo8lg392q", createMandateRequest);
 			System.out.println(createMandateResponse.getData());
 		} catch (SentenialException ex){
 			ex.printStackTrace();

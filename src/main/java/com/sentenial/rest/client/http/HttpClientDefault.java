@@ -27,20 +27,17 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.message.BasicHeader;
 import org.apache.http.util.EntityUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import com.sentenial.rest.client.api.common.service.SentenialException;
 import com.sentenial.rest.client.api.error.ErrorResponse;
+import com.sentenial.rest.client.utils.JsonTransformationException;
 import com.sentenial.rest.client.utils.JsonUtils;
 
 public class HttpClientDefault implements HttpClient {
 
-	private static final Logger logger = LoggerFactory.getLogger(HttpClientDefault.class);
+	private String clientVersion = "N.A.";
 
-	public final static String CLIENT_VERSION = "1.0.0";
-
-	public static final String CUSTOM_USER_AGENT = format("sentenial-java/%s", CLIENT_VERSION);
+	private String customUserAgentHeaderValue = format("sentenial-java/%s", clientVersion);
 
 	protected enum RequestMethod {GET, POST, PUT, DELETE};
 	
@@ -57,6 +54,12 @@ public class HttpClientDefault implements HttpClient {
 	public void initialize(){
 		requestConfig = RequestConfig.custom().setConnectTimeout(httpConnectTimeout).setSocketTimeout(httpReadTimeout).build();
 		httpClient = HttpClientBuilder.create().setDefaultRequestConfig(requestConfig).build();
+
+		String implementationVersion = this.getClass().getPackage().getImplementationVersion();
+		if (implementationVersion != null && implementationVersion.length() > 0){
+			clientVersion = implementationVersion;
+		}
+		customUserAgentHeaderValue = format("sentenial-java/%s", clientVersion);
 	}
 
 
@@ -177,7 +180,7 @@ public class HttpClientDefault implements HttpClient {
 		}
 		
 		Map<String, String> finalHeaders = new HashMap<String, String>();
-		finalHeaders.put("User-Agent", CUSTOM_USER_AGENT);
+		finalHeaders.put("User-Agent", customUserAgentHeaderValue);
 		finalHeaders.putAll(headers);
 		request.setHeaders(transformHeaders(finalHeaders));
 
@@ -185,11 +188,15 @@ public class HttpClientDefault implements HttpClient {
 		response = httpClient.execute(request);
 		int statusCode = response.getStatusLine().getStatusCode();
 
-		if (statusCode < 500 && statusCode >= 400) {
-			throw new SentenialException(url, statusCode, JsonUtils.fromJson(EntityUtils.toString(response.getEntity(), Consts.UTF_8), ErrorResponse.class));
-		} else if (statusCode < 200 || statusCode >= 300) {
-			throw new SentenialException(url, statusCode, EntityUtils.toString(response.getEntity(), Consts.UTF_8));
-		}   
+		if (statusCode < 200 || statusCode >= 300){
+			ErrorResponse errorResponse = null;
+			try {
+				errorResponse = JsonUtils.fromJson(EntityUtils.toString(response.getEntity(), Consts.UTF_8), ErrorResponse.class);
+				throw new SentenialException(url, statusCode, errorResponse);
+			} catch (JsonTransformationException e) {
+				throw new SentenialException(url, statusCode, EntityUtils.toString(response.getEntity(), Consts.UTF_8));
+			} 
+		}
 		
 		return response.getEntity();
 	}
@@ -212,7 +219,5 @@ public class HttpClientDefault implements HttpClient {
 	public void setHttpReadTimeout(int httpReadTimeout) {
 		this.httpReadTimeout = httpReadTimeout;
 	}
-	
-	
 
 }

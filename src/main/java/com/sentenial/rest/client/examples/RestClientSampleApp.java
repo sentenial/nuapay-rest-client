@@ -23,6 +23,8 @@ public class RestClientSampleApp {
 		ServiceConfiguration serviceConfiguration = new ServiceConfiguration(false);
 		serviceConfiguration.setApiKey("fd9d24268a21dce68cbddb99b96fdc5ec97c1e940b5c2415fe8231e69baec16b");
 
+		//creditorSchemeActions(serviceConfiguration);
+		
 		//mandateActions(creditorSchemeId, serviceConfiguration);
 		
 		//filesActions(serviceConfiguration);
