@@ -1,6 +1,7 @@
 package com.sentenial.rest.client.api.mandate.dto;
 
 import com.sentenial.rest.client.api.common.dto.Address;
+import com.sentenial.rest.client.api.common.dto.CommunicationLanguage;
 
 public class Debtor {
 
@@ -9,7 +10,7 @@ public class Debtor {
 	
 	private Address address;
 	
-	private String language;
+	private CommunicationLanguage language;
 	
 	private String email;
 	
@@ -28,7 +29,7 @@ public class Debtor {
 		return this;
 	}
 	
-	public Debtor withLanguage(String language) {
+	public Debtor withLanguage(CommunicationLanguage language) {
 		this.language = language;
 		return this;
 	}
@@ -64,11 +65,11 @@ public class Debtor {
 		this.address = adress;
 	}
 
-	public String getLanguage() {
+	public CommunicationLanguage getLanguage() {
 		return language;
 	}
 
-	public void setLanguage(String language) {
+	public void setLanguage(CommunicationLanguage language) {
 		this.language = language;
 	}
 

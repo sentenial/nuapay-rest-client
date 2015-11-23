@@ -1,6 +1,7 @@
 package com.sentenial.rest.client.api.beneficiaries.dto;
 
 import com.sentenial.rest.client.api.common.dto.Address;
+import com.sentenial.rest.client.api.common.dto.CommunicationLanguage;
 
 public class BeneficiaryDetails {
 
@@ -9,7 +10,7 @@ public class BeneficiaryDetails {
 
 	private Address address;
 
-	private String language;
+	private CommunicationLanguage language;
 
 	private String email;
 
@@ -30,7 +31,7 @@ public class BeneficiaryDetails {
 		return this;
 	}
 	
-	public BeneficiaryDetails withLanguage(String language) {
+	public BeneficiaryDetails withLanguage(CommunicationLanguage language) {
 		this.language = language;
 		return this;
 	}
@@ -72,11 +73,11 @@ public class BeneficiaryDetails {
 		this.address = address;
 	}
 
-	public String getLanguage() {
+	public CommunicationLanguage getLanguage() {
 		return language;
 	}
 
-	public void setLanguage(String language) {
+	public void setLanguage(CommunicationLanguage language) {
 		this.language = language;
 	}
 

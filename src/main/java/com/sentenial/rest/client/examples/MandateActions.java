@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 
 import com.sentenial.rest.client.api.common.dto.Address;
 import com.sentenial.rest.client.api.common.dto.BasicAccount;
+import com.sentenial.rest.client.api.common.dto.CommunicationLanguage;
 import com.sentenial.rest.client.api.common.service.ServiceConfiguration;
 import com.sentenial.rest.client.api.mandate.MandateService;
 import com.sentenial.rest.client.api.mandate.MandateServiceDefault;
@@ -59,7 +60,7 @@ public class MandateActions {
 										.withState("Debtor State")
 										.withCountry("IE")
 										)
-								.withLanguage("fr_BE")
+								.withLanguage(CommunicationLanguage.fr_BE)
 								.withEmail("debtor@email.com")
 								.withPhoneNumber("0360123123123")
 								.withMobileNumber("0360321312312")
@@ -140,7 +141,7 @@ public class MandateActions {
 										.withState("Debtor State")
 										.withCountry("IE")
 										)
-								.withLanguage("fr_BE")
+								.withLanguage(CommunicationLanguage.fr_BE)
 								.withEmail("debtor@email.com")
 								.withPhoneNumber("0360123123123")
 								.withMobileNumber("0360321312312")

@@ -18,6 +18,7 @@ import com.sentenial.rest.client.api.beneficiaries.dto.ListBeneficiariesResponse
 import com.sentenial.rest.client.api.beneficiaries.dto.RetrieveBeneficiaryResponse;
 import com.sentenial.rest.client.api.common.dto.Address;
 import com.sentenial.rest.client.api.common.dto.BasicAccount;
+import com.sentenial.rest.client.api.common.dto.CommunicationLanguage;
 import com.sentenial.rest.client.api.common.service.ServiceConfiguration;
 
 public class BeneficiariesActions {
@@ -46,7 +47,7 @@ public class BeneficiariesActions {
 													.withPostCode("123123")
 													.withState("Beneficiary State")
 													.withCountry("IE"))
-											.withLanguage("en")
+											.withLanguage(CommunicationLanguage.en)
 											.withEmail("beneficiary@mail.com")
 											.withPhoneNumber("0360123123123")
 											.withMobileNumber("0360321321321")
