@@ -19,7 +19,15 @@ public class UpdateMandateRequest{
 		this.resendMandateForSignature = resendMandateForSignature;
 		return this;
 	}
-	
+
+	public Mandate getMandate() {
+		return mandate;
+	}
+
+	public void setMandate(Mandate mandate) {
+		this.mandate = mandate;
+	}
+
 	public ResendMandateForSignature getResendMandateForSignature() {
 		return resendMandateForSignature;
 	}
