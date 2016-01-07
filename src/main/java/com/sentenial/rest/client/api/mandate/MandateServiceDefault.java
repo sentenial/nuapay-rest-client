@@ -1,5 +1,12 @@
 package com.sentenial.rest.client.api.mandate;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.Map;
+import java.util.Map.Entry;
+
+import org.apache.commons.io.FileUtils;
+
 import com.sentenial.rest.client.api.common.service.AbstractServiceDefault;
 import com.sentenial.rest.client.api.common.service.ServiceConfiguration;
 import com.sentenial.rest.client.api.mandate.dto.ActivateMandateRequest;
@@ -11,6 +18,7 @@ import com.sentenial.rest.client.api.mandate.dto.CreateMandateResponse;
 import com.sentenial.rest.client.api.mandate.dto.ListMandatesRequestParameters;
 import com.sentenial.rest.client.api.mandate.dto.ListMandatesResponse;
 import com.sentenial.rest.client.api.mandate.dto.RetrieveMandateResponse;
+import com.sentenial.rest.client.api.mandate.dto.UpdateMandateDocumentRequest;
 import com.sentenial.rest.client.api.mandate.dto.UpdateMandateRequest;
 import com.sentenial.rest.client.api.mandate.dto.UpdateMandateResponse;
 import com.sentenial.rest.client.utils.JsonUtils;
@@ -22,12 +30,16 @@ public class MandateServiceDefault extends AbstractServiceDefault implements Man
 	public static final String LIST_MANDATES_BY_CREDITOR_SCHEME = "/schemes/%s/mandates";
 	public static final String CREATE_MANDATE = "/schemes/%s/mandates";
 	public static final String RETRIEVE_MANDATE = "/schemes/%s/mandates/%s";
-	public static final String RETRIEVE_MANDATE_DOCUMENT = "/schemes/%s/mandates/%s/document";  
+	public static final String RETRIEVE_MANDATE_DOCUMENT = "/schemes/%s/mandates/%s/document";
+	public static final String UPDATE_MANDATE_DOCUMENT = "/schemes/%s/mandates/%s/document";
 	public static final String UPDATE_MANDATE = "/schemes/%s/mandates/%s";
 	public static final String ACTIVATE_MANDATE = "/schemes/%s/mandates/%s/activate";
 	public static final String CANCEL_MANDATE = "/schemes/%s/mandates/%s/cancel";
 
 
+	private static final String CONTENT_TYPE_JSON = "application/json";
+	private static final String CONTENT_TYPE_PDF = "application/pdf";
+	
 	public MandateServiceDefault(ServiceConfiguration serviceConfiguration) {
 		super(serviceConfiguration);
 	}
@@ -55,6 +67,30 @@ public class MandateServiceDefault extends AbstractServiceDefault implements Man
 		String url = String.format(getApiUri() + RETRIEVE_MANDATE_DOCUMENT, creditorSchemeId, mandateId);
 
 		return httpClient.getAsStream(url, headers());
+	}
+
+	@Override
+	public void updateMandateDocument(File file, UpdateMandateDocumentRequest fileDetails, String creditorSchemeId, String mandateId, Map<String, String> additionalHeaders) {
+
+		String url = String.format(getApiUri() + UPDATE_MANDATE_DOCUMENT, creditorSchemeId, mandateId);
+		String payload = JsonUtils.toJson(fileDetails);
+		
+		byte[] fileContent;
+		try {
+			fileContent = FileUtils.readFileToByteArray(file);
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+
+		Map<String, String> headers = headers();
+		if(additionalHeaders!=null) {
+			for (Entry<String, String> entry : additionalHeaders.entrySet())
+			{
+				headers.put(entry.getKey(), entry.getValue());
+			}		
+		}
+		
+		httpClient.postMultipart(url, headers, "json", payload, CONTENT_TYPE_JSON, "file", fileContent, CONTENT_TYPE_PDF, file.getName());	
 	}
 
 	@Override
@@ -103,5 +139,4 @@ public class MandateServiceDefault extends AbstractServiceDefault implements Man
 
 		return JsonUtils.fromJson(httpClient.post(url, headers(), payload), CancelMandateResponse.class);
 	}
-
 }

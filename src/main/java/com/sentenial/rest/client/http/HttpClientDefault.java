@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 import org.apache.http.Consts;
 import org.apache.http.Header;
@@ -80,9 +79,9 @@ public class HttpClientDefault implements HttpClient {
 	
 	@Override
 	public String postMultipart(String url, Map<String, String> headers, 
-			String textPartName, String textPartPayload, 
-			String filePartName, byte[] filePartPayload) {
-		return requestPostMultiPartWithStringResult(url, headers, textPartName,textPartPayload, filePartName, filePartPayload);
+			String textPartName, String textPartPayload, String textPartContentType,
+			String filePartName, byte[] filePartPayload, String filePartContentType, String fileName) {
+		return requestPostMultiPartWithStringResult(url, headers, textPartName,textPartPayload, textPartContentType, filePartName, filePartPayload, filePartContentType, fileName);
 	}
 	
 	@Override
@@ -96,15 +95,15 @@ public class HttpClientDefault implements HttpClient {
 	}
 
 	private String requestPostMultiPartWithStringResult(String url, Map<String, String> headers, 
-			String textPartName, String textPartPayload, 
-			String filePartName, byte[] filePartPayload){
+			String textPartName, String textPartPayload, String textPartContentType, 
+			String filePartName, byte[] filePartPayload, String filePartContentType, String fileName){
 
 		MultipartEntityBuilder builder = MultipartEntityBuilder.create();
 		builder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);
 		builder.setContentType(ContentType.MULTIPART_FORM_DATA);
-
-		builder.addBinaryBody(filePartName, filePartPayload, ContentType.APPLICATION_XML, UUID.randomUUID().toString());
-		builder.addTextBody(textPartName, textPartPayload, ContentType.APPLICATION_JSON);
+		
+		builder.addBinaryBody(filePartName, filePartPayload, ContentType.create(filePartContentType), fileName);
+		builder.addTextBody(textPartName, textPartPayload, ContentType.create(textPartContentType) );
 		
 		HttpEntity multipartHttpEntity = builder.build();
 		
@@ -197,7 +196,6 @@ public class HttpClientDefault implements HttpClient {
 				throw new SentenialException(url, statusCode, EntityUtils.toString(response.getEntity(), Consts.UTF_8));
 			} 
 		}
-		
 		return response.getEntity();
 	}
 
