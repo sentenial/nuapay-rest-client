@@ -11,8 +11,8 @@ public interface HttpClient {
 	String post(String url, Map<String, String> headers, String payload);
 	
 	public String postMultipart(String url, Map<String, String> headers, 
-			String textPartName, String textPartPayload, 
-			String filePartName, byte[] filePartPayload);
+			String textPartName, String textPartPayload, String textPartContentType, 
+			String filePartName, byte[] filePartPayload, String filePartContentType, String fileName);
 
 	String put(String url, Map<String, String> headers, String payload);
 	
