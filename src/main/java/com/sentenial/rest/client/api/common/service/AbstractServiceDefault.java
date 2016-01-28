@@ -36,6 +36,11 @@ public abstract class AbstractServiceDefault {
       
       headers.put(basicAuthHeader.getKey(), basicAuthHeader.getValue());
       
+      Map<String, String> additionalHeaders = serviceConfiguration.getAdditionalHeaders();
+      if (additionalHeaders != null){
+    	  headers.putAll(additionalHeaders);
+      }
+      
       return headers;
     }
 

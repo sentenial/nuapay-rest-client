@@ -1,8 +1,5 @@
 package com.sentenial.rest.client.api.mandate;
 
-import java.io.File;
-import java.util.Map;
-
 import com.sentenial.rest.client.api.mandate.dto.ActivateMandateRequest;
 import com.sentenial.rest.client.api.mandate.dto.ActivateMandateResponse;
 import com.sentenial.rest.client.api.mandate.dto.CancelMandateRequest;
@@ -24,7 +21,7 @@ public interface MandateService {
 
 	byte[] retrieveMandateDocument(String creditorSchemeId, String mandateId);
 
-	void updateMandateDocument(File file, UpdateMandateDocumentRequest fileName, String creditorSchemeId, String mandateId, Map<String, String> additionalHeaders);
+	void updateMandateDocument(String creditorSchemeId, String mandateId, UpdateMandateDocumentRequest updateMandateDocumentRequest, byte[] fileContent);
 	
 	ListMandatesResponse listMandates(String creditorSchemeId, ListMandatesRequestParameters listMandatesRequestParameters);
 

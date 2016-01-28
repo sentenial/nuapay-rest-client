@@ -4,6 +4,11 @@ public class UpdateMandateDocumentRequest {
 
 	private String fileName;
 
+	public UpdateMandateDocumentRequest withFileName(String fileName) {
+		this.fileName = fileName;
+		return this;
+	}
+	
 	public String getFileName() {
 		return fileName;
 	}

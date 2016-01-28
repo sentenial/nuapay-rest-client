@@ -1,7 +1,10 @@
 package com.sentenial.rest.client.examples;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
+import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -28,6 +31,7 @@ import com.sentenial.rest.client.api.mandate.dto.MandateSummaryResource;
 import com.sentenial.rest.client.api.mandate.dto.MandateType;
 import com.sentenial.rest.client.api.mandate.dto.ResendMandateForSignature;
 import com.sentenial.rest.client.api.mandate.dto.RetrieveMandateResponse;
+import com.sentenial.rest.client.api.mandate.dto.UpdateMandateDocumentRequest;
 import com.sentenial.rest.client.api.mandate.dto.UpdateMandateRequest;
 import com.sentenial.rest.client.api.mandate.dto.UpdateMandateResponse;
 import com.sentenial.rest.client.utils.DateUtils;
@@ -121,6 +125,25 @@ public class MandateActions {
 		logger.info("" + image.length);
 
 		return image;
+	}
+	
+	public void uploadMandateDocument(String creditorSchemeId, String mandateId){
+
+		File file = new File("f://mandate.pdf");
+		
+		byte[] fileContent;
+		try {
+			fileContent = FileUtils.readFileToByteArray(file);
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+		
+		UpdateMandateDocumentRequest updateMandateDocumentRequest = 
+				new UpdateMandateDocumentRequest()
+					.withFileName("mandate123.pdf");
+		
+		mandateService.updateMandateDocument(
+				creditorSchemeId, mandateId, updateMandateDocumentRequest, fileContent);
 	}
 
 	public MandateResource updateMandate(String creditorSchemeId, String mandateId){

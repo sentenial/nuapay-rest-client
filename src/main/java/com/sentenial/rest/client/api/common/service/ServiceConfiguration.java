@@ -1,5 +1,7 @@
 package com.sentenial.rest.client.api.common.service;
 
+import java.util.Map;
+
 public class ServiceConfiguration {
 
 
@@ -10,6 +12,8 @@ public class ServiceConfiguration {
 	private String baseApiUrl;
 
 	private String apiKey;
+	
+	private Map<String, String> additionalHeaders;
 
 
 	public ServiceConfiguration(){
@@ -34,6 +38,14 @@ public class ServiceConfiguration {
 
 	public void setApiKey(String apiKey) {
 		this.apiKey = apiKey;
+	}
+
+	public Map<String, String> getAdditionalHeaders() {
+		return additionalHeaders;
+	}
+
+	public void setAdditionalHeaders(Map<String, String> additionalHeaders) {
+		this.additionalHeaders = additionalHeaders;
 	}
 
 }

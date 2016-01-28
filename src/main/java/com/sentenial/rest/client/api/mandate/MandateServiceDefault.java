@@ -70,27 +70,12 @@ public class MandateServiceDefault extends AbstractServiceDefault implements Man
 	}
 
 	@Override
-	public void updateMandateDocument(File file, UpdateMandateDocumentRequest fileDetails, String creditorSchemeId, String mandateId, Map<String, String> additionalHeaders) {
+	public void updateMandateDocument(String creditorSchemeId, String mandateId, UpdateMandateDocumentRequest updateMandateDocumentRequest, byte[] fileContent) {
 
 		String url = String.format(getApiUri() + UPDATE_MANDATE_DOCUMENT, creditorSchemeId, mandateId);
-		String payload = JsonUtils.toJson(fileDetails);
+		String payload = JsonUtils.toJson(updateMandateDocumentRequest);
 		
-		byte[] fileContent;
-		try {
-			fileContent = FileUtils.readFileToByteArray(file);
-		} catch (IOException e) {
-			throw new RuntimeException(e);
-		}
-
-		Map<String, String> headers = headers();
-		if(additionalHeaders!=null) {
-			for (Entry<String, String> entry : additionalHeaders.entrySet())
-			{
-				headers.put(entry.getKey(), entry.getValue());
-			}		
-		}
-		
-		httpClient.postMultipart(url, headers, "json", payload, CONTENT_TYPE_JSON, "file", fileContent, CONTENT_TYPE_PDF, file.getName());	
+		httpClient.postMultipart(url, headers(), "json", payload, CONTENT_TYPE_JSON, "file", fileContent, CONTENT_TYPE_PDF, updateMandateDocumentRequest.getFileName());	
 	}
 
 	@Override
