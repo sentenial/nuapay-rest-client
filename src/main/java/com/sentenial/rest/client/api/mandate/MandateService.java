@@ -10,6 +10,7 @@ import com.sentenial.rest.client.api.mandate.dto.ListMandatesRequestParameters;
 import com.sentenial.rest.client.api.mandate.dto.ListMandatesResponse;
 import com.sentenial.rest.client.api.mandate.dto.RetrieveMandateResponse;
 import com.sentenial.rest.client.api.mandate.dto.UpdateMandateDocumentRequest;
+import com.sentenial.rest.client.api.mandate.dto.UpdateMandateDocumentResponse;
 import com.sentenial.rest.client.api.mandate.dto.UpdateMandateRequest;
 import com.sentenial.rest.client.api.mandate.dto.UpdateMandateResponse;
 
@@ -21,7 +22,7 @@ public interface MandateService {
 
 	byte[] retrieveMandateDocument(String creditorSchemeId, String mandateId);
 
-	void updateMandateDocument(String creditorSchemeId, String mandateId, UpdateMandateDocumentRequest updateMandateDocumentRequest, byte[] fileContent);
+	UpdateMandateDocumentResponse updateMandateDocument(String creditorSchemeId, String mandateId, UpdateMandateDocumentRequest updateMandateDocumentRequest, byte[] fileContent);
 	
 	ListMandatesResponse listMandates(String creditorSchemeId, ListMandatesRequestParameters listMandatesRequestParameters);
 

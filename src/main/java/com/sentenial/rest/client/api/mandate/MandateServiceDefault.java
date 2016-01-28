@@ -1,12 +1,5 @@
 package com.sentenial.rest.client.api.mandate;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.Map;
-import java.util.Map.Entry;
-
-import org.apache.commons.io.FileUtils;
-
 import com.sentenial.rest.client.api.common.service.AbstractServiceDefault;
 import com.sentenial.rest.client.api.common.service.ServiceConfiguration;
 import com.sentenial.rest.client.api.mandate.dto.ActivateMandateRequest;
@@ -19,6 +12,7 @@ import com.sentenial.rest.client.api.mandate.dto.ListMandatesRequestParameters;
 import com.sentenial.rest.client.api.mandate.dto.ListMandatesResponse;
 import com.sentenial.rest.client.api.mandate.dto.RetrieveMandateResponse;
 import com.sentenial.rest.client.api.mandate.dto.UpdateMandateDocumentRequest;
+import com.sentenial.rest.client.api.mandate.dto.UpdateMandateDocumentResponse;
 import com.sentenial.rest.client.api.mandate.dto.UpdateMandateRequest;
 import com.sentenial.rest.client.api.mandate.dto.UpdateMandateResponse;
 import com.sentenial.rest.client.utils.JsonUtils;
@@ -70,12 +64,14 @@ public class MandateServiceDefault extends AbstractServiceDefault implements Man
 	}
 
 	@Override
-	public void updateMandateDocument(String creditorSchemeId, String mandateId, UpdateMandateDocumentRequest updateMandateDocumentRequest, byte[] fileContent) {
+	public UpdateMandateDocumentResponse updateMandateDocument(String creditorSchemeId, String mandateId, UpdateMandateDocumentRequest updateMandateDocumentRequest, byte[] fileContent) {
 
 		String url = String.format(getApiUri() + UPDATE_MANDATE_DOCUMENT, creditorSchemeId, mandateId);
 		String payload = JsonUtils.toJson(updateMandateDocumentRequest);
 		
-		httpClient.postMultipart(url, headers(), "json", payload, CONTENT_TYPE_JSON, "file", fileContent, CONTENT_TYPE_PDF, updateMandateDocumentRequest.getFileName());	
+		String result = httpClient.postMultipart(url, headers(), "json", payload, CONTENT_TYPE_JSON, "file", fileContent, CONTENT_TYPE_PDF, updateMandateDocumentRequest.getFileName());
+
+		return JsonUtils.fromJson(result, UpdateMandateDocumentResponse.class);
 	}
 
 	@Override
