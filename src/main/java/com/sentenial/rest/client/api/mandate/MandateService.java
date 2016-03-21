@@ -1,5 +1,7 @@
 package com.sentenial.rest.client.api.mandate;
 
+import java.util.Map;
+
 import com.sentenial.rest.client.api.mandate.dto.ActivateMandateRequest;
 import com.sentenial.rest.client.api.mandate.dto.ActivateMandateResponse;
 import com.sentenial.rest.client.api.mandate.dto.CancelMandateRequest;
@@ -16,7 +18,7 @@ import com.sentenial.rest.client.api.mandate.dto.UpdateMandateResponse;
 
 public interface MandateService {
 
-	CreateMandateResponse createMandate(String creditorSchemeId, CreateMandateRequest createMandateRequest);
+	CreateMandateResponse createMandate(String creditorSchemeId, CreateMandateRequest createMandateRequest,Map<String, String> additionalHeaders);
 
 	RetrieveMandateResponse retrieveMandate(String creditorSchemeId, String mandateId);
 
