@@ -9,5 +9,7 @@ public enum MandateStatus {
     UNREADABLE,
     UNSIGNED,
     SCREENING,
+    READY_FOR_EXPORT,
+    EXPORTED,
     SUSPENDED;
 }
