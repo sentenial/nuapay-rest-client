@@ -5,8 +5,8 @@ import java.util.Map;
 public class ServiceConfiguration {
 
 
-	public final static String LIVE_ENVIRONMENT_URL = "https://api.nuapay.com/v1";
-	public final static String UAT_ENVIRONMENT_URL = "https://api.sentenialtest.com/v1";
+	public final static String LIVE_ENVIRONMENT_URL = "https://api.nuapay.com";
+	public final static String UAT_ENVIRONMENT_URL = "https://api.sentenialtest.com";
 
 
 	private String baseApiUrl;
