@@ -107,4 +107,4 @@ public class RestClientSampleApp {
 	}
 ```
 
-For more details refer to the [documentation](https://docs.nuapay.com/v1).
+For more details refer to the [documentation](https://docs.nuapay.com/api).

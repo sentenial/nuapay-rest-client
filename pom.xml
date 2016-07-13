@@ -9,20 +9,28 @@
 	<packaging>jar</packaging>
 
 	<name>nuapay-rest-client</name>
-	<url>https://docs.nuapay.com/v1/</url>
-    <description>NuaPay REST API Java Bindings</description>
-    <organization>
-        <name>Sentenial</name>
-        <url>http://sentenial.com</url>
-    </organization>
-
+	<description>NuaPay REST API Java Bindings</description>
+	<url>https://github.com/sentenial/nuapay-rest-client</url>
+	
+	<organization>
+		<name>Sentenial</name>
+		<url>http://sentenial.com</url>
+	</organization>
+	
+	<licenses>
+		<license>
+			<name>MIT License</name>
+			<url>http://www.opensource.org/licenses/mit-license.php</url>
+		</license>
+	</licenses>
+	
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 
 	<dependencies>
 
-        <dependency>
+		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-core</artifactId>
 			<version>2.6.2</version>
@@ -33,11 +41,11 @@
 			<version>2.6.2</version>
 		</dependency>
 		<dependency>
-		    <groupId>com.fasterxml.jackson.module</groupId>
-		    <artifactId>jackson-module-jaxb-annotations</artifactId>
-		    <version>2.6.2</version>
+			<groupId>com.fasterxml.jackson.module</groupId>
+			<artifactId>jackson-module-jaxb-annotations</artifactId>
+			<version>2.6.2</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.apache.httpcomponents</groupId>
 			<artifactId>httpclient</artifactId>
@@ -48,25 +56,25 @@
 			<artifactId>httpmime</artifactId>
 			<version>4.5.1</version>
 		</dependency>
-	
-        <dependency>
+
+		<dependency>
 			<groupId>commons-codec</groupId>
 			<artifactId>commons-codec</artifactId>
 			<version>1.10</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
 			<version>2.4</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-log4j12</artifactId>
 			<version>1.7.12</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
@@ -85,14 +93,21 @@
 			<version>4.12</version>
 			<scope>test</scope>
 		</dependency>
-        <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-all</artifactId>
-            <version>1.10.19</version>
-            <scope>test</scope>
-        </dependency>
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-all</artifactId>
+			<version>1.10.19</version>
+			<scope>test</scope>
+		</dependency>
 
 	</dependencies>
+
+	<distributionManagement>
+		<snapshotRepository>
+			<id>ossrh</id>
+			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
+		</snapshotRepository>
+	</distributionManagement>
 
 	<scm>
 		<connection>scm:git:git@github.com:sentenial/sentenial-rest-client.git</connection>
@@ -144,6 +159,31 @@
 						</goals>
 					</execution>
 				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-gpg-plugin</artifactId>
+				<version>1.5</version>
+				<executions>
+					<execution>
+						<id>sign-artifacts</id>
+						<phase>verify</phase>
+						<goals>
+							<goal>sign</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.sonatype.plugins</groupId>
+				<artifactId>nexus-staging-maven-plugin</artifactId>
+				<version>1.6.7</version>
+				<extensions>true</extensions>
+				<configuration>
+					<serverId>ossrh</serverId>
+					<nexusUrl>https://oss.sonatype.org/</nexusUrl>
+					<autoReleaseAfterClose>false</autoReleaseAfterClose>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
