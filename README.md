@@ -13,8 +13,21 @@ Java 6 or later.
 * slf4j
 * log4j
 
+### Usage
 
-### Using 
+Released versions of the library is accessible through Maven Central, so you can easily include in your building scripts.
+
+E.g. for maven:
+
+```xml
+<dependency>
+    <groupId>com.sentenial</groupId>
+    <artifactId>nuapay-rest-client</artifactId>
+    <version>[RELEASED.VERSION]</version>
+</dependency>
+```
+
+### Building from sources 
     
 * Download source project
 * Generate `jar` file using `mvn clean package` command, then  
