@@ -23,7 +23,7 @@ E.g. for maven:
 <dependency>
     <groupId>com.sentenial</groupId>
     <artifactId>nuapay-rest-client</artifactId>
-    <version>[RELEASED.VERSION]</version>
+    <version>[VERSION].RELEASE</version>
 </dependency>
 ```
 
