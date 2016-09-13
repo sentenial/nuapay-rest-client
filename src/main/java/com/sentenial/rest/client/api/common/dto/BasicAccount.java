@@ -11,8 +11,12 @@ public class BasicAccount {
 	
 	private String domesticBranchCode;
 	
+	private String domesticBankCode;
+	
+	private String domesticCheckSum;
+	
 	private String accountCountry;
-
+	
 	
 	public BasicAccount withIban(String iban) {
 		this.iban = iban;
@@ -31,6 +35,16 @@ public class BasicAccount {
 
 	public BasicAccount withDomesticBranchCode(String domesticBranchCode) {
 		this.domesticBranchCode = domesticBranchCode;
+		return this;
+	}
+	
+	public BasicAccount withDomesticCheckSum(String domesticCheckSum) {
+		this.domesticCheckSum = domesticCheckSum;
+		return this;
+	}
+	
+	public BasicAccount withDomesticBankCode(String domesticBankCode) {
+		this.domesticBankCode = domesticBankCode;
 		return this;
 	}
 
@@ -79,10 +93,26 @@ public class BasicAccount {
 		this.accountCountry = accountCountry;
 	}
 
+	public String getDomesticBankCode() {
+		return domesticBankCode;
+	}
+
+	public void setDomesticBankCode(String domesticBankCode) {
+		this.domesticBankCode = domesticBankCode;
+	}
+
+	public String getDomesticCheckSum() {
+		return domesticCheckSum;
+	}
+
+	public void setDomesticCheckSum(String domesticCheckSum) {
+		this.domesticCheckSum = domesticCheckSum;
+	}
+
 	@Override
 	public String toString() {
-		return "BasicAccount [iban=" + iban + ", bic=" + bic + ", domesticAccountNumber=" + domesticAccountNumber
-				+ ", domesticBranchCode=" + domesticBranchCode + ", accountCountry=" + accountCountry + "]";
+		return "BasicAccount [iban=" + iban + ", bic=" + bic + ", domesticAccountNumber=" + domesticAccountNumber + ", domesticBranchCode=" + domesticBranchCode + ", domesticBankCode="
+				+ domesticBankCode + ", domesticCheckSum=" + domesticCheckSum + ", accountCountry=" + accountCountry + "]";
 	}
 
 }
