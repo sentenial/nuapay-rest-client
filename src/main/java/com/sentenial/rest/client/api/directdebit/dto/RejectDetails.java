@@ -32,6 +32,22 @@ public class RejectDetails {
 		return this;
 	}
 
+	public String getRejectReason() {
+		return rejectReason;
+	}
+
+	public String getRejectDescription() {
+		return rejectDescription;
+	}
+
+	public String getRejectType() {
+		return rejectType;
+	}
+
+	public String getRejectDate() {
+		return rejectDate;
+	}
+
 	@Override
 	public String toString() {
 		return "RejectDetails [rejectReason=" + rejectReason + ", rejectDescription=" + rejectDescription
