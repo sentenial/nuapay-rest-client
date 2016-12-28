@@ -4,7 +4,7 @@
 
 	<groupId>com.sentenial</groupId>
 	<artifactId>nuapay-rest-client</artifactId>
-	<version>1.0.14.RELEASE</version>
+	<version>1.0.15.BUILD_SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<name>nuapay-rest-client</name>
@@ -117,7 +117,7 @@
 		<connection>scm:git:https://github.com/sentenial/nuapay-rest-client.git</connection>
 		<developerConnection>scm:git:https://github.com/sentenial/nuapay-rest-client.git</developerConnection>
 		<url>https://github.com/sentenial/nuapay-rest-client.git</url>
-		<tag>nuapay-rest-client-1.0.14.RELEASE</tag>
+		<tag>HEAD</tag>
   </scm>
 
 
