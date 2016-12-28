@@ -6,9 +6,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.sentenial.rest.client.api.account.dto.Account;
+import com.sentenial.rest.client.api.beneficiaries.dto.BeneficiaryResource;
 import com.sentenial.rest.client.api.beneficiaries.dto.BeneficiarySummaryResource;
 import com.sentenial.rest.client.api.common.service.ServiceConfiguration;
+import com.sentenial.rest.client.api.creditorscheme.dto.CreditorSchemeConfigResource;
 import com.sentenial.rest.client.api.creditorscheme.dto.CreditorSchemeResource;
+import com.sentenial.rest.client.api.credittransfer.dto.CreditTransferResource;
 import com.sentenial.rest.client.api.directdebit.dto.RevokeAllDirectDebitsResponse.RevokeAllDirectDebitsSummary;
 import com.sentenial.rest.client.api.mandate.dto.MandateResource;
 import com.sentenial.rest.client.api.mandate.dto.MandateSummaryResource;
@@ -36,6 +39,8 @@ public class RestClientSampleApp {
 		//paymentSchedulesActions(serviceConfiguration);
 		
 		//directDebitActions(serviceConfiguration);
+		
+		//creditTransferActions(serviceConfiguration);
 	}
 	
 	private static String creditorSchemeActions(ServiceConfiguration serviceConfiguration){
@@ -46,6 +51,8 @@ public class RestClientSampleApp {
 		List<CreditorSchemeResource> creditorSchemeCollection = creditorSchemeActions.listCreditorSchemes();
 		
 		String creditorSchemeId = creditorSchemeCollection.get(0).getId();
+		
+		CreditorSchemeConfigResource creditorSchemeConfigResource = creditorSchemeActions.retrieveCreditorSchemeConfig(creditorSchemeId);
 		
 		return creditorSchemeId;
 	}
@@ -86,17 +93,15 @@ public class RestClientSampleApp {
 	private static void beneficiaryActions(ServiceConfiguration serviceConfiguration){
 		
 		BeneficiariesActions beneficiariesActions = new BeneficiariesActions(serviceConfiguration);
-		/*
-		BeneficiaryResource beneficiaryResource = beneficiariesActions.createBeneficiary();
-		logger.info("beneficiaryResource: {}", beneficiaryResource);
-		*/
-		//ybo8lg392q
-		/*
-		BeneficiaryResource retrievedBeneficiaryResource = beneficiariesActions.retrieveBeneficiary("ybo8lg392q");
+		
+		BeneficiaryResource createdBeneficiaryResource = beneficiariesActions.createBeneficiary();
+		logger.info("createdBeneficiaryResource: {}", createdBeneficiaryResource);
+		
+		BeneficiaryResource retrievedBeneficiaryResource = beneficiariesActions.retrieveBeneficiary(createdBeneficiaryResource.getId());
 		logger.info("retrievedBeneficiaryResource: {}", retrievedBeneficiaryResource);
-		*/
+		
 		List<BeneficiarySummaryResource> beneficiaries = beneficiariesActions.listBeneficiaries();
-		logger.info("beneficiaries: {}", beneficiaries);
+		logger.info("listed beneficiaries: {}", beneficiaries);
 	}
 	
 	private static void filesActions(ServiceConfiguration serviceConfiguration){
@@ -119,10 +124,20 @@ public class RestClientSampleApp {
 	
 	private static void paymentSchedulesActions(ServiceConfiguration serviceConfiguration){
 		
-		PaymentSchedulesActions paymentSchedulesActions = new PaymentSchedulesActions(serviceConfiguration);
+		String creditorSchemeId = "abxq9oa52l";
+		String mandateId = "a2rev3gdmq";
 		
-		PaymentScheduleResource paymentScheduleResource = paymentSchedulesActions.createPaymentSchedule("w24y3daq2p", "ybo8le8j2q");
-		logger.info("paymentScheduleResource: {}", paymentScheduleResource);
+		PaymentSchedulesActions paymentSchedulesActions = new PaymentSchedulesActions(serviceConfiguration);
+	
+		PaymentScheduleResource createdPaymentScheduleResource = paymentSchedulesActions.createPaymentSchedule(creditorSchemeId, mandateId);
+		logger.info("Created paymentScheduleResource: {}", createdPaymentScheduleResource);
+		
+		List<PaymentScheduleResource> paymentSchedules = paymentSchedulesActions.listPaymentSchedules();
+		logger.info("Listed paymentSchedules: {}", paymentSchedules);
+		
+		PaymentScheduleResource canceledPaymentScheduleResource = 
+				paymentSchedulesActions.cancelPaymentSchedule(creditorSchemeId, mandateId, createdPaymentScheduleResource.getId());
+		logger.info("Canceled paymentScheduleResource: {}", createdPaymentScheduleResource);
 	}
 	
 	private static void directDebitActions(ServiceConfiguration serviceConfiguration){
@@ -151,4 +166,20 @@ public class RestClientSampleApp {
 		logger.info("directDebitResource: {}", representedDirectDebitResource);
 		*/
 	}
+	
+	private static void creditTransferActions(ServiceConfiguration serviceConfiguration){
+
+		String beneficiaryId = "abxq93552l";
+		
+		CreditTransferActions creditTransferActions = new CreditTransferActions(serviceConfiguration);
+
+		CreditTransferResource createdCreditTransferResource = 
+				creditTransferActions.createCreditTransfer(beneficiaryId);
+		logger.info("createdCreditTransferResource: {}", createdCreditTransferResource);
+		
+		CreditTransferResource retrievedCreditTransferResource = 
+				creditTransferActions.retrieveCreditTransfer(beneficiaryId, createdCreditTransferResource.getId());
+		logger.info("retrievedCreditTransferResource: {}", retrievedCreditTransferResource);
+	}
+	
 }

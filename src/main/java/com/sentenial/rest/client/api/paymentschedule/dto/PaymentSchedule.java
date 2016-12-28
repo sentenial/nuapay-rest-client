@@ -33,6 +33,8 @@ public class PaymentSchedule {
 	private String paymentCustomFrequency;
 	
 	private Boolean twoPaymentsSamePeriod;
+	
+	private PaymentScheduleStatus paymentScheduleStatus;
 
 
 	public PaymentSchedule withScheduleId(String scheduleId) {
@@ -102,6 +104,11 @@ public class PaymentSchedule {
 
 	public PaymentSchedule withTwoPaymentsSamePeriod(Boolean twoPaymentsSamePeriod) {
 		this.twoPaymentsSamePeriod = twoPaymentsSamePeriod;
+		return this;
+	}
+
+	public PaymentSchedule withPaymentScheduleStatus(PaymentScheduleStatus paymentScheduleStatus) {
+		this.paymentScheduleStatus = paymentScheduleStatus;
 		return this;
 	}
 
@@ -217,6 +224,14 @@ public class PaymentSchedule {
 		this.twoPaymentsSamePeriod = twoPaymentsSamePeriod;
 	}
 
+	public PaymentScheduleStatus getPaymentScheduleStatus() {
+		return paymentScheduleStatus;
+	}
+
+	public void setPaymentScheduleStatus(PaymentScheduleStatus paymentScheduleStatus) {
+		this.paymentScheduleStatus = paymentScheduleStatus;
+	}
+
 	@Override
 	public String toString() {
 		return "PaymentSchedule [scheduleId=" + scheduleId + ", paymentFrequency=" + paymentFrequency + ", paymentType="
@@ -225,7 +240,8 @@ public class PaymentSchedule {
 				+ ", lastPaymentAmount=" + lastPaymentAmount + ", remittanceInformation=" + remittanceInformation
 				+ ", paymentDayOfWeek=" + paymentDayOfWeek + ", paymentWeekOfMonth=" + paymentWeekOfMonth
 				+ ", paymentDateInMonth=" + paymentDateInMonth + ", paymentCustomFrequency=" + paymentCustomFrequency
-				+ ", twoPaymentsSamePeriod=" + twoPaymentsSamePeriod + "]";
+				+ ", twoPaymentsSamePeriod=" + twoPaymentsSamePeriod + ", paymentScheduleStatus="
+				+ paymentScheduleStatus + "]";
 	}
 
 }

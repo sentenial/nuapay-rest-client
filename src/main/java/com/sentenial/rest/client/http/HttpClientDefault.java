@@ -11,6 +11,7 @@ import java.util.Map;
 import org.apache.http.Consts;
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;
+import org.apache.http.HttpHost;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.config.RequestConfig;
@@ -18,6 +19,7 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpPut;
 import org.apache.http.client.methods.HttpUriRequest;
+import org.apache.http.conn.params.ConnRoutePNames;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.entity.mime.HttpMultipartMode;
@@ -45,6 +47,10 @@ public class HttpClientDefault implements HttpClient {
 
 	private int httpConnectTimeout = 10000;
 	private int httpReadTimeout = 30000;
+	
+	private String proxyScheme;
+	private String proxyHost;
+	private Integer proxyPort;
 
 	public HttpClientDefault() {
 		initialize();
@@ -53,6 +59,10 @@ public class HttpClientDefault implements HttpClient {
 	public void initialize(){
 		requestConfig = RequestConfig.custom().setConnectTimeout(httpConnectTimeout).setSocketTimeout(httpReadTimeout).build();
 		httpClient = HttpClientBuilder.create().setDefaultRequestConfig(requestConfig).build();
+
+		if (proxyScheme != null && proxyHost != null && proxyPort != null){
+			httpClient.getParams().setParameter(ConnRoutePNames.DEFAULT_PROXY, new HttpHost(proxyHost, proxyPort, proxyScheme));
+		}
 
 		String implementationVersion = this.getClass().getPackage().getImplementationVersion();
 		if (implementationVersion != null && implementationVersion.length() > 0){
@@ -218,4 +228,15 @@ public class HttpClientDefault implements HttpClient {
 		this.httpReadTimeout = httpReadTimeout;
 	}
 
+	public void setProxyScheme(String proxyScheme) {
+		this.proxyScheme = proxyScheme;
+	}
+
+	public void setProxyHost(String proxyHost) {
+		this.proxyHost = proxyHost;
+	}
+
+	public void setProxyPort(Integer proxyPort) {
+		this.proxyPort = proxyPort;
+	}
 }

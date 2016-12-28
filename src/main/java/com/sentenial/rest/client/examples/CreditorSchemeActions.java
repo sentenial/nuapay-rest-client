@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import com.sentenial.rest.client.api.common.service.ServiceConfiguration;
 import com.sentenial.rest.client.api.creditorscheme.CreditorSchemeService;
 import com.sentenial.rest.client.api.creditorscheme.CreditorSchemeServiceDefault;
+import com.sentenial.rest.client.api.creditorscheme.dto.CreditorSchemeConfigResource;
 import com.sentenial.rest.client.api.creditorscheme.dto.CreditorSchemeResource;
 
 public class CreditorSchemeActions {
@@ -25,6 +26,16 @@ public class CreditorSchemeActions {
 		logger.info(creditorSchemes.toString());
 		
 		return creditorSchemes;
+	}
+	
+	public CreditorSchemeConfigResource retrieveCreditorSchemeConfig(String creditorSchemeId){
+		
+		CreditorSchemeConfigResource creditorSchemeConfigResource = 
+				creditorSchemeService.retrieveCreditorSchemeConfig(creditorSchemeId).getData();
+		
+		logger.info(creditorSchemeConfigResource.toString());
+		
+		return creditorSchemeConfigResource;
 	}
 	
 }
