@@ -112,7 +112,7 @@ public class RestClientSampleApp {
 
 		try{
 			CreateMandateResponse createMandateResponse = 
-						mandateService.createMandate("ybo8lg392q", createMandateRequest);
+						mandateService.createMandate("ybo8lg392q", createMandateRequest, null);
 			System.out.println(createMandateResponse.getData());
 		} catch (SentenialException ex){
 			ex.printStackTrace();

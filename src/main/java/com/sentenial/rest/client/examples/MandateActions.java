@@ -87,7 +87,7 @@ public class MandateActions {
 								)
 						);
 
-		CreateMandateResponse createMandateResponse = mandateService.createMandate(creditorSchemeId, createMandateRequest);
+		CreateMandateResponse createMandateResponse = mandateService.createMandate(creditorSchemeId, createMandateRequest, null);
 
 		MandateResource mandateResource = createMandateResponse.getData();
 		logger.info(mandateResource.toString());

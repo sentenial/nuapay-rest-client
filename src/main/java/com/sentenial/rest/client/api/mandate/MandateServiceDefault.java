@@ -1,5 +1,8 @@
 package com.sentenial.rest.client.api.mandate;
 
+import java.util.Map;
+import java.util.Map.Entry;
+
 import com.sentenial.rest.client.api.common.service.AbstractServiceDefault;
 import com.sentenial.rest.client.api.common.service.ServiceConfiguration;
 import com.sentenial.rest.client.api.mandate.dto.ActivateMandateRequest;
@@ -39,12 +42,14 @@ public class MandateServiceDefault extends AbstractServiceDefault implements Man
 	}
 
 	@Override
-	public CreateMandateResponse createMandate(String creditorSchemeId, CreateMandateRequest createMandateRequest) {
+	public CreateMandateResponse createMandate(String creditorSchemeId, CreateMandateRequest createMandateRequest,Map<String, String> additionalHeaders) {
 
 		String url = String.format(getApiUri() + CREATE_MANDATE, creditorSchemeId);
 		String payload = JsonUtils.toJson(createMandateRequest);
 
-		return JsonUtils.fromJson(httpClient.post(url, headers(), payload), CreateMandateResponse.class);
+		Map<String, String> headers = mixInAdditionalHeaders(additionalHeaders);
+
+		return JsonUtils.fromJson(httpClient.post(url, headers, payload), CreateMandateResponse.class);
 	}
 
 	@Override
@@ -120,4 +125,15 @@ public class MandateServiceDefault extends AbstractServiceDefault implements Man
 
 		return JsonUtils.fromJson(httpClient.post(url, headers(), payload), CancelMandateResponse.class);
 	}
+	
+	private Map<String, String> mixInAdditionalHeaders(Map<String, String> additionalHeaders) {
+		Map<String, String> headers = headers();
+		if(additionalHeaders!=null) {
+			for (Entry<String, String> entry : additionalHeaders.entrySet()) {
+				headers.put(entry.getKey(), entry.getValue());
+			}		
+		}
+		return headers;
+	}
+	
 }
