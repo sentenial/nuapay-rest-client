@@ -20,13 +20,13 @@ public class ListFailedDirectDebitRequestParameters extends PagingRequestParamet
 		StringBuilder builder = new StringBuilder();
 		
 		if (rejectCreateFrom != null){
-			builder.append("rejectCreateFrom=" + DateUtils.fromDate(rejectCreateFrom) + "&");
+			builder.append("rejectcreatefrom=" + DateUtils.fromDate(rejectCreateFrom) + "&");
 		}
 		if (rejectCreateTo != null){
-			builder.append("rejectCreateTo=" + DateUtils.fromDate(rejectCreateTo) + "&");
+			builder.append("rejectcreateto=" + DateUtils.fromDate(rejectCreateTo) + "&");
 		}
 		if (technicalRejects != null){
-			builder.append("technicalRejects=" + technicalRejects + "&");
+			builder.append("technicalrejects=" + technicalRejects + "&");
 		}
 		String paging = super.generatePagingRequestParamsString();
 		if (paging != null){
