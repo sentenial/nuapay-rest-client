@@ -14,10 +14,10 @@ public class ListBeneficiariesRequestParameters extends PagingRequestParameters{
 		StringBuilder builder = new StringBuilder();
 		
 		if (beneficiaryIban != null){
-			builder.append("beneficiaryIban=" + beneficiaryIban + "&");
+			builder.append("beneficiaryiban=" + beneficiaryIban + "&");
 		}
 		if (beneficiaryName != null){
-			builder.append("beneficiaryName=" + beneficiaryName + "&");
+			builder.append("beneficiaryname=" + beneficiaryName + "&");
 		}
 		
 		String paging = super.generatePagingRequestParamsString();
