@@ -119,5 +119,60 @@ public class RestClientSampleApp {
 		}
 	}
 ```
+### Example with Proxy
+
+Simple code to list creditor schemes:
+
+```java
+
+package com.sentenial.core.processing.enrichment.credittransfer;
+
+import com.sentenial.rest.client.api.common.dto.BasicAccount;
+import com.sentenial.rest.client.api.common.service.SentenialException;
+import com.sentenial.rest.client.api.common.service.ServiceConfiguration;
+import com.sentenial.rest.client.api.creditorscheme.CreditorSchemeService;
+import com.sentenial.rest.client.api.creditorscheme.CreditorSchemeServiceDefault;
+import com.sentenial.rest.client.api.creditorscheme.dto.ListCreditorSchemesResponse;
+import com.sentenial.rest.client.api.mandate.dto.CreateMandateRequest;
+import com.sentenial.rest.client.api.mandate.dto.Debtor;
+import com.sentenial.rest.client.api.mandate.dto.Mandate;
+
+public class MandatesEndpoint2 {
+
+    public static void main(String[] args) {
+
+        ServiceConfiguration serviceConfiguration = new ServiceConfiguration();
+        serviceConfiguration.setApiKey("c1cd4d8e450789634a4e656a6341e2da106066bfd8a7f4ab3a13f24c9167cc27");
+        // proxy configuration, set all 3 values
+        serviceConfiguration.setProxyHost("sent-int-prx-vip");
+        serviceConfiguration.setProxyPort(3128);        
+        serviceConfiguration.setProxyScheme("http");
+
+        CreditorSchemeService csService = new CreditorSchemeServiceDefault(serviceConfiguration);
+      
+        CreateMandateRequest createMandateRequest = 
+                new CreateMandateRequest()
+                    .withMandate(
+                        new Mandate()
+                            .withDebtor(
+                                    new Debtor()
+                                        .withName("Debtor Name")                                       
+                                        )                            
+                            .withDebtorAccount(
+                                    new BasicAccount()
+                                        .withIban("IE44BOFI90387502070002")
+                                    )
+                            
+                        );
+
+        try{         
+        	ListCreditorSchemesResponse createMandateResponse = csService.listCreditorSchemes();
+            System.out.println(createMandateResponse.getData());
+        } catch (SentenialException ex){
+            ex.printStackTrace();
+        }
+    }
+}
+
 
 For more details refer to the [documentation](https://docs.nuapay.com/api).
