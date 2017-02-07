@@ -2,7 +2,9 @@ package com.sentenial.rest.client.api.common.service;
 
 import java.util.Map;
 
-public class ServiceConfiguration {
+import com.sentenial.rest.client.http.HttpClientDefault;
+
+public class ServiceConfiguration extends HttpClientDefault {
 
 
 	public final static String LIVE_ENVIRONMENT_URL = "https://api.nuapay.com";
