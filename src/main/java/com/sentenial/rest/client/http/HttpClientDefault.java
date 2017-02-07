@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.http.Consts;
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;
@@ -19,13 +20,13 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpPut;
 import org.apache.http.client.methods.HttpUriRequest;
-import org.apache.http.conn.params.ConnRoutePNames;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.entity.mime.HttpMultipartMode;
 import org.apache.http.entity.mime.MultipartEntityBuilder;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.impl.conn.DefaultProxyRoutePlanner;
 import org.apache.http.message.BasicHeader;
 import org.apache.http.util.EntityUtils;
 
@@ -53,15 +54,19 @@ public class HttpClientDefault implements HttpClient {
 	private Integer proxyPort;
 
 	public HttpClientDefault() {
-		initialize();
+		
 	}
 	
 	public void initialize(){
 		requestConfig = RequestConfig.custom().setConnectTimeout(httpConnectTimeout).setSocketTimeout(httpReadTimeout).build();
-		httpClient = HttpClientBuilder.create().setDefaultRequestConfig(requestConfig).build();
-
-		if (proxyScheme != null && proxyHost != null && proxyPort != null){
-			httpClient.getParams().setParameter(ConnRoutePNames.DEFAULT_PROXY, new HttpHost(proxyHost, proxyPort, proxyScheme));
+		if (StringUtils.isNotBlank(proxyScheme) && StringUtils.isNotBlank(proxyHost) && proxyPort != null) {
+			System.out.println("Initialising proxy settings");
+			HttpHost proxy = new HttpHost(proxyHost, proxyPort, proxyScheme);
+			DefaultProxyRoutePlanner routePlanner = new DefaultProxyRoutePlanner(proxy);
+			httpClient = HttpClientBuilder.create().setDefaultRequestConfig(requestConfig).setRoutePlanner(routePlanner).build();			
+			
+		} else {
+			httpClient = HttpClientBuilder.create().setDefaultRequestConfig(requestConfig).build();
 		}
 
 		String implementationVersion = this.getClass().getPackage().getImplementationVersion();

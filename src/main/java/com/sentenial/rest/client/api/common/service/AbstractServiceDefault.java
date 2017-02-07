@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.sentenial.rest.client.http.HttpClient;
-import com.sentenial.rest.client.http.HttpClientDefault;
 import com.sentenial.rest.client.http.HttpUtils;
 
 public abstract class AbstractServiceDefault {
@@ -16,8 +15,9 @@ public abstract class AbstractServiceDefault {
 	
 	
 	public AbstractServiceDefault(ServiceConfiguration serviceConfiguration){
+		serviceConfiguration.initialize();
 		this.serviceConfiguration = serviceConfiguration;
-		this.httpClient = new HttpClientDefault();
+		this.httpClient = serviceConfiguration;
 	}
 	
 	public AbstractServiceDefault(ServiceConfiguration serviceConfiguration, HttpClient httpClient){
