@@ -1,43 +1,32 @@
 package com.sentenial.rest.client.api.beneficiaries.dto;
 
+
 public class BeneficiarySummary {
 
+	private BeneficiaryDetails beneficiary;
 	
-	private String beneficiaryName;
-	
-	private String beneficiaryIban;
-	
-	private String beneficiaryMobileNumber;
+	private BeneficiaryAccount beneficiaryAccount;
 
 	
-	public String getBeneficiaryName() {
-		return beneficiaryName;
+	public BeneficiaryDetails getBeneficiary() {
+		return beneficiary;
 	}
 
-	public void setBeneficiaryName(String beneficiaryName) {
-		this.beneficiaryName = beneficiaryName;
+	public void setBeneficiary(BeneficiaryDetails beneficiary) {
+		this.beneficiary = beneficiary;
 	}
 
-	public String getBeneficiaryIban() {
-		return beneficiaryIban;
+	public BeneficiaryAccount getBeneficiaryAccount() {
+		return beneficiaryAccount;
 	}
 
-	public void setBeneficiaryIban(String beneficiaryIban) {
-		this.beneficiaryIban = beneficiaryIban;
-	}
-
-	public String getBeneficiaryMobileNumber() {
-		return beneficiaryMobileNumber;
-	}
-
-	public void setBeneficiaryMobileNumber(String beneficiaryMobileNumber) {
-		this.beneficiaryMobileNumber = beneficiaryMobileNumber;
+	public void setBeneficiaryAccount(BeneficiaryAccount beneficiaryAccount) {
+		this.beneficiaryAccount = beneficiaryAccount;
 	}
 
 	@Override
 	public String toString() {
-		return "BeneficiarySummary [beneficiaryName=" + beneficiaryName + ", beneficiaryIban=" + beneficiaryIban
-				+ ", beneficiaryMobileNumber=" + beneficiaryMobileNumber + "]";
+		return "Beneficiary [beneficiary=" + beneficiary + ", beneficiaryAccount=" + beneficiaryAccount + "]";
 	}
 
 }
