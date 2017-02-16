@@ -8,16 +8,15 @@ import org.slf4j.LoggerFactory;
 import com.sentenial.rest.client.api.beneficiaries.BeneficiariesService;
 import com.sentenial.rest.client.api.beneficiaries.BeneficiariesServiceDefault;
 import com.sentenial.rest.client.api.beneficiaries.dto.Beneficiary;
+import com.sentenial.rest.client.api.beneficiaries.dto.BeneficiaryAccount;
 import com.sentenial.rest.client.api.beneficiaries.dto.BeneficiaryDetails;
 import com.sentenial.rest.client.api.beneficiaries.dto.BeneficiaryResource;
-import com.sentenial.rest.client.api.beneficiaries.dto.BeneficiarySummaryResource;
 import com.sentenial.rest.client.api.beneficiaries.dto.CreateBeneficiaryRequest;
 import com.sentenial.rest.client.api.beneficiaries.dto.CreateBeneficiaryResponse;
 import com.sentenial.rest.client.api.beneficiaries.dto.ListBeneficiariesRequestParameters;
 import com.sentenial.rest.client.api.beneficiaries.dto.ListBeneficiariesResponse;
 import com.sentenial.rest.client.api.beneficiaries.dto.RetrieveBeneficiaryResponse;
 import com.sentenial.rest.client.api.common.dto.Address;
-import com.sentenial.rest.client.api.common.dto.BasicAccount;
 import com.sentenial.rest.client.api.common.dto.CommunicationLanguage;
 import com.sentenial.rest.client.api.common.service.ServiceConfiguration;
 
@@ -53,7 +52,7 @@ public class BeneficiariesActions {
 											.withMobileNumber("0360321321321")
 											.withDescriptionOfPurpose("Description of Purpose"))
 								.withBeneficiaryAccount(
-										new BasicAccount()
+										new BeneficiaryAccount()
 											.withIban("BE03123123456784")
 											.withBic("SELNGB21"))
 								);
@@ -66,7 +65,7 @@ public class BeneficiariesActions {
 		return beneficiaryResource;
 	}
 	
-	public List<BeneficiarySummaryResource> listBeneficiaries(){
+	public List<BeneficiaryResource> listBeneficiaries(){
 		
 		ListBeneficiariesRequestParameters listBeneficiariesRequestParameters = 
 				new ListBeneficiariesRequestParameters();
@@ -74,7 +73,7 @@ public class BeneficiariesActions {
 		
 		ListBeneficiariesResponse listBeneficiariesResponse = 
 				beneficiariesService.listBeneficiaries(listBeneficiariesRequestParameters);
-		List<BeneficiarySummaryResource> beneficiaryList = listBeneficiariesResponse.getData();
+		List<BeneficiaryResource> beneficiaryList = listBeneficiariesResponse.getData();
 		logger.info(beneficiaryList.toString());
 		
 		return beneficiaryList;

@@ -1,13 +1,12 @@
 package com.sentenial.rest.client.api.beneficiaries.dto;
 
-import com.sentenial.rest.client.api.common.dto.BasicAccount;
 
 public class Beneficiary {
 
 	
 	private BeneficiaryDetails beneficiary;
 	
-	private BasicAccount beneficiaryAccount;
+	private BeneficiaryAccount beneficiaryAccount;
 
 	
 	public Beneficiary withBeneficiary(BeneficiaryDetails beneficiary) {
@@ -15,7 +14,7 @@ public class Beneficiary {
 		return this;
 	}
 
-	public Beneficiary withBeneficiaryAccount(BasicAccount beneficiaryAccount) {
+	public Beneficiary withBeneficiaryAccount(BeneficiaryAccount beneficiaryAccount) {
 		this.beneficiaryAccount = beneficiaryAccount;
 		return this;
 	}
@@ -28,11 +27,11 @@ public class Beneficiary {
 		this.beneficiary = beneficiary;
 	}
 
-	public BasicAccount getBeneficiaryAccount() {
+	public BeneficiaryAccount getBeneficiaryAccount() {
 		return beneficiaryAccount;
 	}
 
-	public void setBeneficiaryAccount(BasicAccount beneficiaryAccount) {
+	public void setBeneficiaryAccount(BeneficiaryAccount beneficiaryAccount) {
 		this.beneficiaryAccount = beneficiaryAccount;
 	}
 

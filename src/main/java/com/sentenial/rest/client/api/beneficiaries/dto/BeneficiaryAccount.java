@@ -1,5 +1,7 @@
 package com.sentenial.rest.client.api.beneficiaries.dto;
 
+import com.sentenial.rest.client.api.common.dto.BasicAccount;
+
 public class BeneficiaryAccount {
 
 	private String iban;
@@ -19,6 +21,16 @@ public class BeneficiaryAccount {
 
 	public void setBic(String bic) {
 		this.bic = bic;
+	}
+
+	public BeneficiaryAccount withIban(String iban) {
+		this.iban = iban;
+		return this;
+	}
+
+	public BeneficiaryAccount withBic(String bic) {
+		this.bic = bic;
+		return this;
 	}
 
 	@Override
