@@ -1,7 +1,5 @@
 package com.sentenial.rest.client.api.beneficiaries.dto;
 
-import com.sentenial.rest.client.api.common.dto.BasicAccount;
-
 public class BeneficiaryAccount {
 
 	private String iban;
