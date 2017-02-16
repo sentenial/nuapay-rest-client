@@ -21,6 +21,16 @@ public class BeneficiaryAccount {
 		this.bic = bic;
 	}
 
+	public BeneficiaryAccount withIban(String iban) {
+		this.iban = iban;
+		return this;
+	}
+
+	public BeneficiaryAccount withBic(String bic) {
+		this.bic = bic;
+		return this;
+	}
+
 	@Override
 	public String toString() {
 		return "BeneficiaryAccount [iban=" + iban + ", bic=" + bic + "]";

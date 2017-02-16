@@ -7,7 +7,6 @@ import org.slf4j.LoggerFactory;
 
 import com.sentenial.rest.client.api.account.dto.Account;
 import com.sentenial.rest.client.api.beneficiaries.dto.BeneficiaryResource;
-import com.sentenial.rest.client.api.beneficiaries.dto.BeneficiarySummaryResource;
 import com.sentenial.rest.client.api.common.service.ServiceConfiguration;
 import com.sentenial.rest.client.api.creditorscheme.dto.CreditorSchemeConfigResource;
 import com.sentenial.rest.client.api.creditorscheme.dto.CreditorSchemeResource;
@@ -100,7 +99,7 @@ public class RestClientSampleApp {
 		BeneficiaryResource retrievedBeneficiaryResource = beneficiariesActions.retrieveBeneficiary(createdBeneficiaryResource.getId());
 		logger.info("retrievedBeneficiaryResource: {}", retrievedBeneficiaryResource);
 		
-		List<BeneficiarySummaryResource> beneficiaries = beneficiariesActions.listBeneficiaries();
+		List<BeneficiaryResource> beneficiaries = beneficiariesActions.listBeneficiaries();
 		logger.info("listed beneficiaries: {}", beneficiaries);
 	}
 	
