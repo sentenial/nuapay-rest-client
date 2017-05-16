@@ -4,6 +4,8 @@ import com.sentenial.rest.client.api.common.service.AbstractServiceDefault;
 import com.sentenial.rest.client.api.common.service.ServiceConfiguration;
 import com.sentenial.rest.client.api.paymentschedule.dto.CancelPaymentScheduleRequest;
 import com.sentenial.rest.client.api.paymentschedule.dto.CancelPaymentScheduleResponse;
+import com.sentenial.rest.client.api.paymentschedule.dto.CreatePaymentScheduleAndMandateRequest;
+import com.sentenial.rest.client.api.paymentschedule.dto.CreatePaymentScheduleAndMandateResponse;
 import com.sentenial.rest.client.api.paymentschedule.dto.CreatePaymentScheduleRequest;
 import com.sentenial.rest.client.api.paymentschedule.dto.CreatePaymentScheduleResponse;
 import com.sentenial.rest.client.api.paymentschedule.dto.ListPaymentScheduleRequestParameters;
@@ -16,6 +18,7 @@ public class PaymentScheduleServiceDefault extends AbstractServiceDefault implem
 	public static final String LIST_PAYMENT_SCHEDULES_BY_CREDITORSCHEME = "/schemes/%s/paymentschedules";
 	public static final String LIST_PAYMENT_SCHEDULES_BY_MANDATE = "/schemes/%s/mandates/%s/paymentschedules";
 	public static final String CREATE_PAYMENT_SCHEDULE = "/schemes/%s/mandates/%s/paymentschedules";
+	public static final String CREATE_PAYMENT_SCHEDULES_AND_MANDATE = "/schemes/%s/paymentschedules";
 	public static final String CANCEL_PAYMENT_SCHEDULE = "/schemes/%s/mandates/%s/paymentschedules/%s/cancel";
 	
 	public PaymentScheduleServiceDefault(ServiceConfiguration serviceConfiguration) {
@@ -32,6 +35,18 @@ public class PaymentScheduleServiceDefault extends AbstractServiceDefault implem
 		return JsonUtils.fromJson(httpClient.post(url, headers(), payload), CreatePaymentScheduleResponse.class);
 	}
 
+
+	@Override
+	public CreatePaymentScheduleAndMandateResponse createPaymentScheduleAndMandate(
+			String creditorSchemeId, CreatePaymentScheduleAndMandateRequest createPaymentScheduleAndMandateRequest) {
+
+		String url = String.format(getApiUri() + CREATE_PAYMENT_SCHEDULES_AND_MANDATE, creditorSchemeId);
+		String payload = JsonUtils.toJson(createPaymentScheduleAndMandateRequest);
+
+		return JsonUtils.fromJson(httpClient.post(url, headers(), payload), CreatePaymentScheduleAndMandateResponse.class);
+		
+	}
+	
 	@Override
 	public ListPaymentScheduleResponse listPaymentSchedules(
 			ListPaymentScheduleRequestParameters listPaymentScheduleRequestParameters) {

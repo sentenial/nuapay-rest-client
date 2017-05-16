@@ -2,6 +2,8 @@ package com.sentenial.rest.client.api.paymentschedule;
 
 import com.sentenial.rest.client.api.paymentschedule.dto.CancelPaymentScheduleRequest;
 import com.sentenial.rest.client.api.paymentschedule.dto.CancelPaymentScheduleResponse;
+import com.sentenial.rest.client.api.paymentschedule.dto.CreatePaymentScheduleAndMandateRequest;
+import com.sentenial.rest.client.api.paymentschedule.dto.CreatePaymentScheduleAndMandateResponse;
 import com.sentenial.rest.client.api.paymentschedule.dto.CreatePaymentScheduleRequest;
 import com.sentenial.rest.client.api.paymentschedule.dto.CreatePaymentScheduleResponse;
 import com.sentenial.rest.client.api.paymentschedule.dto.ListPaymentScheduleRequestParameters;
@@ -12,6 +14,9 @@ public interface PaymentScheduleService {
 	CreatePaymentScheduleResponse createPaymentSchedule(
 			String creditorSchemeId, String mandateId, CreatePaymentScheduleRequest createPaymentScheduleRequest);
 
+	CreatePaymentScheduleAndMandateResponse createPaymentScheduleAndMandate(
+			String creditorSchemeId, CreatePaymentScheduleAndMandateRequest createPaymentScheduleAndMandateRequest);
+	
 	ListPaymentScheduleResponse listPaymentSchedules(
 			ListPaymentScheduleRequestParameters listPaymentScheduleRequestParameters);
 	

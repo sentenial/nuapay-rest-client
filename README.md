@@ -118,6 +118,7 @@ public class RestClientSampleApp {
 			ex.printStackTrace();
 		}
 	}
+}
 ```
 ### Example with Proxy
 
@@ -173,6 +174,193 @@ public class MandatesEndpoint2 {
         }
     }
 }
+```
+
+
+
+
+### Example
+
+Simple code to create mandate and single direct debit:
+
+```java
+
+import java.math.BigDecimal;
+
+import com.sentenial.rest.client.api.common.dto.Address;
+import com.sentenial.rest.client.api.common.dto.BasicAccount;
+import com.sentenial.rest.client.api.common.dto.CommunicationLanguage;
+import com.sentenial.rest.client.api.common.service.SentenialException;
+import com.sentenial.rest.client.api.common.service.ServiceConfiguration;
+import com.sentenial.rest.client.api.directdebit.DirectDebitService;
+import com.sentenial.rest.client.api.directdebit.DirectDebitServiceDefault;
+import com.sentenial.rest.client.api.directdebit.dto.CreateDirectDebitAndMandateRequest;
+import com.sentenial.rest.client.api.directdebit.dto.CreateDirectDebitAndMandateResponse;
+import com.sentenial.rest.client.api.mandate.dto.Debtor;
+import com.sentenial.rest.client.api.mandate.dto.Mandate;
+import com.sentenial.rest.client.api.mandate.dto.MandateInfo;
+import com.sentenial.rest.client.api.mandate.dto.MandateType;
+import com.sentenial.rest.client.utils.DateUtils;
+
+public class RestClientSampleApp {
+
+	public static void main(String[] args) {
+		
+		ServiceConfiguration serviceConfiguration = new ServiceConfiguration();
+		serviceConfiguration.setApiKey("Your-APIKEY-here");
+
+		DirectDebitService directDebitService = new DirectDebitServiceDefault(serviceConfiguration);
+		
+		CreateDirectDebitAndMandateRequest createDirectDebitAndMandateRequest = 
+			new CreateDirectDebitAndMandateRequest().withMandate(
+				new Mandate().withDebtor(
+					new Debtor()
+						.withName("Debtor Name")
+						.withAddress(
+								new Address()
+									.withLine1("Debtor Address Line1")
+									.withLine2("Debtor Address Line2")
+									.withTown("Debtor Town")
+									.withPostCode("123123")
+									.withState("Debtor State")
+									.withCountry("IE")
+								)
+						.withLanguage(CommunicationLanguage.fr_BE)
+						.withEmail("debtor@email.com")
+						.withPhoneNumber("0360123123123")
+						.withMobileNumber("0360321312312")
+						)
+				.withMandateInfo(
+					new MandateInfo()
+						.withMandateId("1234567899")
+						.withContractReference("Contract Reference")
+						.withSignatureLocation("Signature Location")
+						.withSignatureDate(DateUtils.toDate("2015-07-21"))
+						.withMandateType(MandateType.RCUR)
+						)
+				.withDebtorAccount(
+					new BasicAccount()
+						.withIban("GB94SELN00999976543215")
+					)
+				.withCreditorAccount(
+					new BasicAccount()
+						.withIban("GB47SELN00999912345678")
+					)
+				);
+		createDirectDebitAndMandateRequest
+					.withRequestedCollectionDate(DateUtils.toDate("2017-10-30"))
+					.withPaymentAmount(new BigDecimal("5000.01"))
+					.withEndToEndId("5234567876543230007")
+					.withRemittanceInformation("Remittance Information");
+
+		try{
+			CreateDirectDebitAndMandateResponse createDirectDebitAndMandateResponse = 
+					directDebitService.createDirectDebitAndMandate("ybo8lg392q", createDirectDebitAndMandateRequest);
+			System.out.println(createDirectDebitAndMandateResponse.getData());
+		} catch (SentenialException ex){
+			ex.printStackTrace();
+		}
+	}
+}
+
+```
+
+
+### Example
+
+Simple code to create mandate and payment schedule:
+
+```java
+
+import java.math.BigDecimal;
+
+import com.sentenial.rest.client.api.common.dto.Address;
+import com.sentenial.rest.client.api.common.dto.BasicAccount;
+import com.sentenial.rest.client.api.common.dto.CommunicationLanguage;
+import com.sentenial.rest.client.api.common.service.SentenialException;
+import com.sentenial.rest.client.api.common.service.ServiceConfiguration;
+import com.sentenial.rest.client.api.mandate.dto.Debtor;
+import com.sentenial.rest.client.api.mandate.dto.Mandate;
+import com.sentenial.rest.client.api.mandate.dto.MandateInfo;
+import com.sentenial.rest.client.api.mandate.dto.MandateType;
+import com.sentenial.rest.client.api.paymentschedule.PaymentScheduleService;
+import com.sentenial.rest.client.api.paymentschedule.PaymentScheduleServiceDefault;
+import com.sentenial.rest.client.api.paymentschedule.dto.CreatePaymentScheduleAndMandateRequest;
+import com.sentenial.rest.client.api.paymentschedule.dto.CreatePaymentScheduleAndMandateResponse;
+import com.sentenial.rest.client.api.paymentschedule.dto.PaymentFrequency;
+import com.sentenial.rest.client.api.paymentschedule.dto.PaymentSchedule;
+import com.sentenial.rest.client.api.paymentschedule.dto.PaymentType;
+import com.sentenial.rest.client.utils.DateUtils;
+
+public class RestClientSampleApp {
+
+	public static void main(String[] args) {
+		
+		ServiceConfiguration serviceConfiguration = new ServiceConfiguration();
+		serviceConfiguration.setApiKey("Your-APIKEY-here");
+
+		PaymentScheduleService paymentScheduleService = new PaymentScheduleServiceDefault(serviceConfiguration);
+		
+		CreatePaymentScheduleAndMandateRequest createPaymentScheduleAndMandateRequest = 
+			new CreatePaymentScheduleAndMandateRequest().withMandate(
+				new Mandate().withDebtor(
+					new Debtor()
+						.withName("Debtor Name")
+						.withAddress(
+							new Address()
+								.withLine1("Debtor Address Line1")
+								.withLine2("Debtor Address Line2")
+								.withTown("Debtor Town")
+								.withPostCode("123123")
+								.withState("Debtor State")
+								.withCountry("IE")
+							)
+						.withLanguage(CommunicationLanguage.fr_BE)
+						.withEmail("debtor@email.com")
+						.withPhoneNumber("0360123123123")
+						.withMobileNumber("0360321312312")
+						)
+				.withMandateInfo(
+					new MandateInfo()
+						.withMandateId("1234567899")
+						.withContractReference("Contract Reference")
+						.withSignatureLocation("Signature Location")
+						.withSignatureDate(DateUtils.toDate("2015-07-21"))
+						.withMandateType(MandateType.RCUR)
+						)
+				.withDebtorAccount(
+					new BasicAccount()
+						.withIban("GB94SELN00999976543215")
+					)
+				.withCreditorAccount(
+					new BasicAccount()
+						.withIban("GB47SELN00999912345678")
+					)
+				);
+		createPaymentScheduleAndMandateRequest.withPaymentSchedule(
+			new PaymentSchedule()
+				.withPaymentFrequency(PaymentFrequency.DAILY)
+				.withPaymentType(PaymentType.FIXED_LENGTH)
+				.withStartDate(DateUtils.toDate("2017-06-23"))
+				.withNumberOfPayments(2)
+				.withPaymentAmount(new BigDecimal("9.90"))
+				.withFirstPaymentAmount(new BigDecimal("1.10"))
+				.withLastPaymentAmount(new BigDecimal("9.90"))
+				.withRemittanceInformation("remittanceInformation")
+				.withTwoPaymentsSamePeriod(true));
+		
+		try{
+			CreatePaymentScheduleAndMandateResponse createPaymentScheduleAndMandateResponse = 
+					paymentScheduleService.createPaymentScheduleAndMandate("ybo8lg392q", createPaymentScheduleAndMandateRequest);
+			System.out.println(createPaymentScheduleAndMandateResponse.getData());
+		} catch (SentenialException ex){
+			ex.printStackTrace();
+		}
+	}
+}
+
+
+```
 
 
 For more details refer to the [documentation](https://docs.nuapay.com/api).
