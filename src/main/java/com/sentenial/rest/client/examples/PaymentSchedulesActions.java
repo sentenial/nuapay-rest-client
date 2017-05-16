@@ -7,16 +7,20 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.sentenial.rest.client.api.common.service.ServiceConfiguration;
+import com.sentenial.rest.client.api.mandate.dto.Mandate;
 import com.sentenial.rest.client.api.paymentschedule.PaymentScheduleService;
 import com.sentenial.rest.client.api.paymentschedule.PaymentScheduleServiceDefault;
 import com.sentenial.rest.client.api.paymentschedule.dto.CancelPaymentScheduleRequest;
 import com.sentenial.rest.client.api.paymentschedule.dto.CancelPaymentScheduleResponse;
+import com.sentenial.rest.client.api.paymentschedule.dto.CreatePaymentScheduleAndMandateRequest;
+import com.sentenial.rest.client.api.paymentschedule.dto.CreatePaymentScheduleAndMandateResponse;
 import com.sentenial.rest.client.api.paymentschedule.dto.CreatePaymentScheduleRequest;
 import com.sentenial.rest.client.api.paymentschedule.dto.CreatePaymentScheduleResponse;
 import com.sentenial.rest.client.api.paymentschedule.dto.ListPaymentScheduleRequestParameters;
 import com.sentenial.rest.client.api.paymentschedule.dto.ListPaymentScheduleResponse;
 import com.sentenial.rest.client.api.paymentschedule.dto.PaymentFrequency;
 import com.sentenial.rest.client.api.paymentschedule.dto.PaymentSchedule;
+import com.sentenial.rest.client.api.paymentschedule.dto.PaymentScheduleAndMandateResource;
 import com.sentenial.rest.client.api.paymentschedule.dto.PaymentScheduleResource;
 import com.sentenial.rest.client.api.paymentschedule.dto.PaymentScheduleStatus;
 import com.sentenial.rest.client.api.paymentschedule.dto.PaymentType;
@@ -40,7 +44,7 @@ public class PaymentSchedulesActions {
 							new PaymentSchedule()
 								.withPaymentFrequency(PaymentFrequency.DAILY)
 								.withPaymentType(PaymentType.FIXED_LENGTH)
-								.withStartDate(DateUtils.toDate("2017-01-23"))
+								.withStartDate(DateUtils.toDate("2017-06-23"))
 								.withNumberOfPayments(2)
 								.withPaymentAmount(new BigDecimal("9.90"))
 								.withFirstPaymentAmount(new BigDecimal("1.10"))
@@ -56,6 +60,33 @@ public class PaymentSchedulesActions {
 		logger.info(paymentScheduleResponse.toString());
 		
 		return createPaymentScheduleResponse.getData();
+	}
+	
+	
+	public PaymentScheduleAndMandateResource createPaymentScheduleAndMandate(String creditorSchemeId, Mandate mandate){
+
+		CreatePaymentScheduleAndMandateRequest createPaymentScheduleAndMandateRequest = 
+				new CreatePaymentScheduleAndMandateRequest().withMandate(mandate);
+		createPaymentScheduleAndMandateRequest.withPaymentSchedule(
+			new PaymentSchedule()
+				.withPaymentFrequency(PaymentFrequency.DAILY)
+				.withPaymentType(PaymentType.FIXED_LENGTH)
+				.withStartDate(DateUtils.toDate("2017-06-23"))
+				.withNumberOfPayments(2)
+				.withPaymentAmount(new BigDecimal("9.90"))
+				.withFirstPaymentAmount(new BigDecimal("1.10"))
+				.withLastPaymentAmount(new BigDecimal("9.90"))
+				.withRemittanceInformation("remittanceInformation")
+				.withTwoPaymentsSamePeriod(true));
+		
+		CreatePaymentScheduleAndMandateResponse createPaymentScheduleAndMandateResponse = 
+				paymentScheduleService.createPaymentScheduleAndMandate(creditorSchemeId, createPaymentScheduleAndMandateRequest);
+		
+		PaymentScheduleAndMandateResource paymentScheduleAndMandateResponse = createPaymentScheduleAndMandateResponse.getData();
+		
+		logger.info(paymentScheduleAndMandateResponse.toString());
+		
+		return createPaymentScheduleAndMandateResponse.getData();
 	}
 	
 	public List<PaymentScheduleResource> listPaymentSchedules(String creditorSchemeId, String mandateId){

@@ -2,6 +2,8 @@ package com.sentenial.rest.client.api.directdebit;
 
 import com.sentenial.rest.client.api.common.service.AbstractServiceDefault;
 import com.sentenial.rest.client.api.common.service.ServiceConfiguration;
+import com.sentenial.rest.client.api.directdebit.dto.CreateDirectDebitAndMandateRequest;
+import com.sentenial.rest.client.api.directdebit.dto.CreateDirectDebitAndMandateResponse;
 import com.sentenial.rest.client.api.directdebit.dto.CreateDirectDebitRequest;
 import com.sentenial.rest.client.api.directdebit.dto.CreateDirectDebitResponse;
 import com.sentenial.rest.client.api.directdebit.dto.ListDirectDebitRequestParameters;
@@ -24,6 +26,7 @@ public class DirectDebitServiceDefault extends AbstractServiceDefault implements
 	public static final String LIST_DIRECTDEBITS_BY_CREDITORSCHEME = "/schemes/%s/directdebits";
 	public static final String LIST_DIRECTDEBITS_BY_MANDATE = "/schemes/%s/mandates/%s/directdebits";
 	public static final String CREATE_DIRECTDEBIT = "/schemes/%s/mandates/%s/directdebits";
+	public static final String CREATE_DIRECTDEBIT_AND_MANDATE = "/schemes/%s/directdebits";
 	public static final String RETRIEVE_DIRECTDEBIT = "/schemes/%s/mandates/%s/directdebits/%s";
 	public static final String LIST_FAILED_DIRECTDEBITS = "/faileddirectdebits";
 	public static final String REVOKE_DIRECTDEBIT = "/schemes/%s/mandates/%s/directdebits/%s/revoke";
@@ -44,6 +47,16 @@ public class DirectDebitServiceDefault extends AbstractServiceDefault implements
 		String payload = JsonUtils.toJson(createDirectDebitRequest);
 
 		return JsonUtils.fromJson(httpClient.post(url, headers(), payload), CreateDirectDebitResponse.class);
+	}
+
+	@Override
+	public CreateDirectDebitAndMandateResponse createDirectDebitAndMandate(
+			String creditorSchemeId, CreateDirectDebitAndMandateRequest createDirectDebitAndMandateRequest) {
+
+		String url = String.format(getApiUri() + CREATE_DIRECTDEBIT_AND_MANDATE, creditorSchemeId);
+		String payload = JsonUtils.toJson(createDirectDebitAndMandateRequest);
+
+		return JsonUtils.fromJson(httpClient.post(url, headers(), payload), CreateDirectDebitAndMandateResponse.class);
 	}
 
 	@Override

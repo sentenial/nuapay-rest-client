@@ -1,5 +1,7 @@
 package com.sentenial.rest.client.api.directdebit;
 
+import com.sentenial.rest.client.api.directdebit.dto.CreateDirectDebitAndMandateRequest;
+import com.sentenial.rest.client.api.directdebit.dto.CreateDirectDebitAndMandateResponse;
 import com.sentenial.rest.client.api.directdebit.dto.CreateDirectDebitRequest;
 import com.sentenial.rest.client.api.directdebit.dto.CreateDirectDebitResponse;
 import com.sentenial.rest.client.api.directdebit.dto.ListDirectDebitRequestParameters;
@@ -18,6 +20,9 @@ public interface DirectDebitService {
 
 	CreateDirectDebitResponse createDirectDebit(
 			String creditorSchemeId, String mandateId, CreateDirectDebitRequest createDirectDebitRequest);
+
+	CreateDirectDebitAndMandateResponse createDirectDebitAndMandate(
+			String creditorSchemeId, CreateDirectDebitAndMandateRequest createDirectDebitAndMandateRequest);
 	
 	RetrieveDirectDebitResponse retrieveDirectDebit(
 			String creditorSchemeId, String mandateId, String directDebitId);

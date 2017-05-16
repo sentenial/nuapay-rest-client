@@ -9,8 +9,11 @@ import org.slf4j.LoggerFactory;
 import com.sentenial.rest.client.api.common.service.ServiceConfiguration;
 import com.sentenial.rest.client.api.directdebit.DirectDebitService;
 import com.sentenial.rest.client.api.directdebit.DirectDebitServiceDefault;
+import com.sentenial.rest.client.api.directdebit.dto.CreateDirectDebitAndMandateRequest;
+import com.sentenial.rest.client.api.directdebit.dto.CreateDirectDebitAndMandateResponse;
 import com.sentenial.rest.client.api.directdebit.dto.CreateDirectDebitRequest;
 import com.sentenial.rest.client.api.directdebit.dto.CreateDirectDebitResponse;
+import com.sentenial.rest.client.api.directdebit.dto.DirectDebitAndMandateResource;
 import com.sentenial.rest.client.api.directdebit.dto.DirectDebitResource;
 import com.sentenial.rest.client.api.directdebit.dto.FailedDirectDebitResource;
 import com.sentenial.rest.client.api.directdebit.dto.ListDirectDebitRequestParameters;
@@ -25,6 +28,7 @@ import com.sentenial.rest.client.api.directdebit.dto.RevokeAllDirectDebitsRespon
 import com.sentenial.rest.client.api.directdebit.dto.RevokeAllDirectDebitsResponse.RevokeAllDirectDebitsSummary;
 import com.sentenial.rest.client.api.directdebit.dto.RevokeDirectDebitRequest;
 import com.sentenial.rest.client.api.directdebit.dto.RevokeDirectDebitResponse;
+import com.sentenial.rest.client.api.mandate.dto.Mandate;
 import com.sentenial.rest.client.utils.DateUtils;
 
 public class DirectDebitActions {
@@ -53,6 +57,25 @@ public class DirectDebitActions {
 		logger.info(directDebitResource.toString());
 
 		return directDebitResource;
+	}
+
+	public DirectDebitAndMandateResource createDirectDebitAndMandate(String creditorSchemeId, Mandate mandate){
+
+		CreateDirectDebitAndMandateRequest createDirectDebitAndMandateRequest = 
+				new CreateDirectDebitAndMandateRequest().withMandate(mandate);
+		createDirectDebitAndMandateRequest
+					.withRequestedCollectionDate(DateUtils.toDate("2017-10-30"))
+					.withPaymentAmount(new BigDecimal("5000.01"))
+					.withEndToEndId("5234567876543230007")
+					.withRemittanceInformation("Remittance Information");
+		
+		CreateDirectDebitAndMandateResponse createDirectDebitAndMandateResponse = 
+				directDebitService.createDirectDebitAndMandate(creditorSchemeId, createDirectDebitAndMandateRequest);
+		
+		DirectDebitAndMandateResource directDebitAndMandateResource = createDirectDebitAndMandateResponse.getData();
+		logger.info(directDebitAndMandateResource.toString());
+
+		return directDebitAndMandateResource;
 	}
 	
 	public DirectDebitResource retrieveDirectDebit(String creditorSchemeId, String mandateId, String directDebitId){

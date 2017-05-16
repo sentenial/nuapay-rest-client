@@ -157,4 +157,14 @@ public class DirectDebit {
 		this.paymentStatus = paymentStatus;
 	}
 
+	@Override
+	public String toString() {
+		return "DirectDebit [scheduleId=" + scheduleId + ", endToEndId=" + endToEndId + ", paymentAmount="
+				+ paymentAmount + ", requestedCollectionDate=" + requestedCollectionDate + ", actualCollectionDate="
+				+ actualCollectionDate + ", exportDate=" + exportDate + ", remittanceInformation="
+				+ remittanceInformation + ", originalEndToEndId=" + originalEndToEndId
+				+ ", representationAttemptNumber=" + representationAttemptNumber + ", paymentStatus=" + paymentStatus
+				+ "]";
+	}
+
 }
