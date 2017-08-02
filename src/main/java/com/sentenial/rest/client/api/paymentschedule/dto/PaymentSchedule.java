@@ -36,6 +36,7 @@ public class PaymentSchedule {
 	
 	private PaymentScheduleStatus paymentScheduleStatus;
 
+	private Boolean settlementDateShift;
 
 	public PaymentSchedule withScheduleId(String scheduleId) {
 		this.scheduleId = scheduleId;
@@ -231,6 +232,14 @@ public class PaymentSchedule {
 	public void setPaymentScheduleStatus(PaymentScheduleStatus paymentScheduleStatus) {
 		this.paymentScheduleStatus = paymentScheduleStatus;
 	}
+	
+	public Boolean getSettlementDateShift() {
+		return settlementDateShift;
+	}
+
+	public void setSettlementDateShift(Boolean settlementDateShift) {
+		this.settlementDateShift = settlementDateShift;
+	}
 
 	@Override
 	public String toString() {
@@ -241,7 +250,7 @@ public class PaymentSchedule {
 				+ ", paymentDayOfWeek=" + paymentDayOfWeek + ", paymentWeekOfMonth=" + paymentWeekOfMonth
 				+ ", paymentDateInMonth=" + paymentDateInMonth + ", paymentCustomFrequency=" + paymentCustomFrequency
 				+ ", twoPaymentsSamePeriod=" + twoPaymentsSamePeriod + ", paymentScheduleStatus="
-				+ paymentScheduleStatus + "]";
+				+ paymentScheduleStatus + ", settlementDateShift=" + settlementDateShift + "]";
 	}
 
 }
