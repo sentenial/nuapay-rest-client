@@ -138,15 +138,15 @@ import com.sentenial.rest.client.api.mandate.dto.CreateMandateRequest;
 import com.sentenial.rest.client.api.mandate.dto.Debtor;
 import com.sentenial.rest.client.api.mandate.dto.Mandate;
 
-public class MandatesEndpoint2 {
+public class RestClientProxySampleApp {
 
     public static void main(String[] args) {
 
         ServiceConfiguration serviceConfiguration = new ServiceConfiguration();
-        serviceConfiguration.setApiKey("c1cd4d8e450789634a4e656a6341e2da106066bfd8a7f4ab3a13f24c9167cc27");
+        serviceConfiguration.setApiKey("Your-APIKEY-here");
         // proxy configuration, set all 3 values
-        serviceConfiguration.setProxyHost("sent-int-prx-vip");
-        serviceConfiguration.setProxyPort(3128);        
+        serviceConfiguration.setProxyHost("Your-Host");
+        serviceConfiguration.setProxyPort(1234);        
         serviceConfiguration.setProxyScheme("http");
 
         CreditorSchemeService csService = new CreditorSchemeServiceDefault(serviceConfiguration);
@@ -166,7 +166,7 @@ public class MandatesEndpoint2 {
                             
                         );
 
-        try{         
+        try {         
         	ListCreditorSchemesResponse createMandateResponse = csService.listCreditorSchemes();
             System.out.println(createMandateResponse.getData());
         } catch (SentenialException ex){
