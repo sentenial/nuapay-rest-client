@@ -10,6 +10,7 @@ import com.sentenial.rest.client.api.paymentschedule.dto.CreatePaymentScheduleRe
 import com.sentenial.rest.client.api.paymentschedule.dto.CreatePaymentScheduleResponse;
 import com.sentenial.rest.client.api.paymentschedule.dto.ListPaymentScheduleRequestParameters;
 import com.sentenial.rest.client.api.paymentschedule.dto.ListPaymentScheduleResponse;
+import com.sentenial.rest.client.api.paymentschedule.dto.RetrievePaymentScheduleResponse;
 import com.sentenial.rest.client.utils.JsonUtils;
 
 public class PaymentScheduleServiceDefault extends AbstractServiceDefault implements PaymentScheduleService{
@@ -20,6 +21,7 @@ public class PaymentScheduleServiceDefault extends AbstractServiceDefault implem
 	public static final String CREATE_PAYMENT_SCHEDULE = "/schemes/%s/mandates/%s/paymentschedules";
 	public static final String CREATE_PAYMENT_SCHEDULES_AND_MANDATE = "/schemes/%s/paymentschedules";
 	public static final String CANCEL_PAYMENT_SCHEDULE = "/schemes/%s/mandates/%s/paymentschedules/%s/cancel";
+	public static final String RETRIEVE_PAYMENT_SCHEDULE = "/schemes/%s/mandates/%s/paymentschedules/%s";
 	
 	public PaymentScheduleServiceDefault(ServiceConfiguration serviceConfiguration) {
 		super(serviceConfiguration);
@@ -45,6 +47,12 @@ public class PaymentScheduleServiceDefault extends AbstractServiceDefault implem
 
 		return JsonUtils.fromJson(httpClient.post(url, headers(), payload), CreatePaymentScheduleAndMandateResponse.class);
 		
+	}
+	
+	@Override
+	public RetrievePaymentScheduleResponse retrievePaymentSchedule(String creditorSchemeId, String mandateId, String paymentScheduleId) {
+		String url = String.format(getApiUri() + RETRIEVE_PAYMENT_SCHEDULE, creditorSchemeId, mandateId, paymentScheduleId);
+		return JsonUtils.fromJson(httpClient.get(url, headers()), RetrievePaymentScheduleResponse.class);
 	}
 	
 	@Override

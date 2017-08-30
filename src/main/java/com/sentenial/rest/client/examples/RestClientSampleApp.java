@@ -140,6 +140,11 @@ public class RestClientSampleApp {
 		PaymentScheduleResource createdPaymentScheduleResource = paymentSchedulesActions.createPaymentSchedule(creditorSchemeId, mandateId);
 		logger.info("Created paymentScheduleResource: {}", createdPaymentScheduleResource);
 		
+		String paymentScheduleId = createdPaymentScheduleResource.getId();
+		
+		PaymentScheduleResource retrievePaymentScheduleResource = paymentSchedulesActions.retrievePaymentSchedule(creditorSchemeId, mandateId, paymentScheduleId);
+		logger.info("Retrieved retrievePaymentScheduleResource: {}", retrievePaymentScheduleResource);
+		
 		//Mandate mandate = generateMandate();
 		//PaymentScheduleAndMandateResource createdPaymentScheduleAndMandateResource = paymentSchedulesActions.createPaymentScheduleAndMandate(creditorSchemeId, mandate);
 		//logger.info("Created paymentScheduleAndMandateResource: {}", createdPaymentScheduleAndMandateResource);

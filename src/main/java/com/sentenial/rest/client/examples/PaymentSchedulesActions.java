@@ -24,6 +24,7 @@ import com.sentenial.rest.client.api.paymentschedule.dto.PaymentScheduleAndManda
 import com.sentenial.rest.client.api.paymentschedule.dto.PaymentScheduleResource;
 import com.sentenial.rest.client.api.paymentschedule.dto.PaymentScheduleStatus;
 import com.sentenial.rest.client.api.paymentschedule.dto.PaymentType;
+import com.sentenial.rest.client.api.paymentschedule.dto.RetrievePaymentScheduleResponse;
 import com.sentenial.rest.client.utils.DateUtils;
 
 public class PaymentSchedulesActions {
@@ -87,6 +88,17 @@ public class PaymentSchedulesActions {
 		logger.info(paymentScheduleAndMandateResponse.toString());
 		
 		return createPaymentScheduleAndMandateResponse.getData();
+	}
+	
+	public PaymentScheduleResource retrievePaymentSchedule(String creditorSchemeId, String mandateId, String paymentScheduleId) {
+
+		RetrievePaymentScheduleResponse response = paymentScheduleService.retrievePaymentSchedule(creditorSchemeId, mandateId, paymentScheduleId);
+
+		logger.info(response.toString());
+		
+		PaymentScheduleResource resource = response.getData();
+		
+		return resource;
 	}
 	
 	public List<PaymentScheduleResource> listPaymentSchedules(String creditorSchemeId, String mandateId){
