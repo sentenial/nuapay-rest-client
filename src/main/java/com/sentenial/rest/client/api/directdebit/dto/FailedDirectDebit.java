@@ -9,7 +9,7 @@ public class FailedDirectDebit {
 	
 	private DirectDebitMandateInfo mandateInfo;
 	
-	private DirectDebit directDebitInfo;
+	private DirectDebitFailure directDebitInfo;
 	
 	private RejectDetails rejectDetails;
 
@@ -24,7 +24,7 @@ public class FailedDirectDebit {
 		return this;
 	}
 
-	public FailedDirectDebit withDirectDebitInfo(DirectDebit directDebitInfo) {
+	public FailedDirectDebit withDirectDebitInfo(DirectDebitFailure directDebitInfo) {
 		this.directDebitInfo = directDebitInfo;
 		return this;
 	}
@@ -50,11 +50,11 @@ public class FailedDirectDebit {
 		this.mandateInfo = mandateInfo;
 	}
 
-	public DirectDebit getDirectDebitInfo() {
+	public DirectDebitFailure getDirectDebitInfo() {
 		return directDebitInfo;
 	}
 
-	public void setDirectDebitInfo(DirectDebit directDebitInfo) {
+	public void setDirectDebitInfo(DirectDebitFailure directDebitInfo) {
 		this.directDebitInfo = directDebitInfo;
 	}
 
