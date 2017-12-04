@@ -13,7 +13,8 @@ public class CreateDirectDebitRequest {
     private String endToEndId;
 
     private String remittanceInformation;
-
+    
+    private Boolean settlementDateShift;
 
 	public CreateDirectDebitRequest withRequestedCollectionDate(Date requestedCollectionDate) {
 		this.requestedCollectionDate = requestedCollectionDate;
@@ -66,5 +67,12 @@ public class CreateDirectDebitRequest {
 	public void setRemittanceInformation(String remittanceInformation) {
 		this.remittanceInformation = remittanceInformation;
 	}
-    
+
+	public Boolean getSettlementDateShift() {
+		return settlementDateShift;
+	}
+
+	public void setSettlementDateShift(Boolean settlementDateShift) {
+		this.settlementDateShift = settlementDateShift;
+	}    
 }
