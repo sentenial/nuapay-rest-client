@@ -14,7 +14,8 @@ public class ServiceConfiguration extends HttpClientDefault {
 	private String baseApiUrl;
 
 	private String apiKey;
-	
+	private String token;
+
 	private Map<String, String> additionalHeaders;
 
 
@@ -50,4 +51,11 @@ public class ServiceConfiguration extends HttpClientDefault {
 		this.additionalHeaders = additionalHeaders;
 	}
 
+	public String getToken() {
+		return token;
+	}
+
+	public void setToken(String token) {
+		this.token = token;
+	}
 }

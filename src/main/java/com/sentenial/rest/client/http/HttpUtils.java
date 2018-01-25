@@ -1,9 +1,9 @@
 package com.sentenial.rest.client.http;
 
+import org.apache.commons.codec.binary.Base64;
+
 import java.util.AbstractMap;
 import java.util.Map;
-
-import org.apache.commons.codec.binary.Base64;
 
 public class HttpUtils {
 
@@ -13,6 +13,10 @@ public class HttpUtils {
 		String basicAuth = Base64.encodeBase64String(credentials.getBytes());
 
 		return new AbstractMap.SimpleImmutableEntry<String, String>("Authorization", "Basic " + basicAuth);
+	}
+
+	public static Map.Entry<String, String> bearerAuth(String token) {
+		return new AbstractMap.SimpleImmutableEntry<String, String>("Authorization", "Bearer " + token);
 	}
 
 }
