@@ -12,13 +12,15 @@ public class MandateInfo {
 	private String signatureLocation;
 	
 	private Date signatureDate;
+
+	private ElectronicSignatureDetails electronicSignatureDetails;
 	
 	private MandateType mandateType;
 	
 	private String status;
 	
 	private Date creationDate;
-
+	
 	
 	public MandateInfo withMandateId(String mandateId) {
 		this.mandateId = mandateId;
@@ -37,6 +39,11 @@ public class MandateInfo {
 	
 	public MandateInfo withSignatureDate(Date signatureDate) {
 		this.signatureDate = signatureDate;
+		return this;
+	}
+	
+	public MandateInfo withElectronicSignatureDetails(ElectronicSignatureDetails electronicSignatureDetails) {
+		this.electronicSignatureDetails = electronicSignatureDetails;
 		return this;
 	}
 	
@@ -101,11 +108,20 @@ public class MandateInfo {
 		this.creationDate = creationDate;
 	}
 
+	public ElectronicSignatureDetails getElectronicSignatureDetails() {
+		return electronicSignatureDetails;
+	}
+
+	public void setElectronicSignatureDetails(ElectronicSignatureDetails electronicSignatureDetails) {
+		this.electronicSignatureDetails = electronicSignatureDetails;
+	}
+
 	@Override
 	public String toString() {
 		return "MandateInfo [mandateId=" + mandateId + ", contractReference=" + contractReference
 				+ ", signatureLocation=" + signatureLocation + ", signatureDate=" + signatureDate + ", mandateType="
-				+ mandateType + "]";
+				+ mandateType + ", status=" + status + ", creationDate=" + creationDate
+				+ ", electronicSignatureDetails=" + electronicSignatureDetails + "]";
 	}
 
 }
