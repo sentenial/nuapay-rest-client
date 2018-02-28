@@ -17,6 +17,8 @@ import com.sentenial.rest.client.api.mandate.dto.UpdateMandateResponse;
 public interface MandateService {
 
 	CreateMandateResponse createMandate(String creditorSchemeId, CreateMandateRequest createMandateRequest);
+	
+	void createMandateInValidateMode(String creditorSchemeId, CreateMandateRequest createMandateRequest); 
 
 	RetrieveMandateResponse retrieveMandate(String creditorSchemeId, String mandateId);
 

@@ -1,5 +1,7 @@
 package com.sentenial.rest.client.api.mandate;
 
+import java.util.Map;
+
 import com.sentenial.rest.client.api.common.service.AbstractServiceDefault;
 import com.sentenial.rest.client.api.common.service.ServiceConfiguration;
 import com.sentenial.rest.client.api.mandate.dto.ActivateMandateRequest;
@@ -45,6 +47,18 @@ public class MandateServiceDefault extends AbstractServiceDefault implements Man
 		String payload = JsonUtils.toJson(createMandateRequest);
 
 		return JsonUtils.fromJson(httpClient.post(url, headers(), payload), CreateMandateResponse.class);
+	}
+	
+	@Override
+	public void createMandateInValidateMode(String creditorSchemeId, CreateMandateRequest createMandateRequest) {
+
+		String url = String.format(getApiUri() + CREATE_MANDATE, creditorSchemeId);
+		String payload = JsonUtils.toJson(createMandateRequest);
+		
+		Map<String, String> headers = headers();
+		headers.put("x-request-mode", "validate");
+		
+		httpClient.post(url, headers, payload);
 	}
 
 	@Override
