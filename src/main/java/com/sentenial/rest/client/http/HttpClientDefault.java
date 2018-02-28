@@ -145,7 +145,9 @@ public class HttpClientDefault implements HttpClient {
 		String result = null;
 		try {
 			HttpEntity responseEntity = requestHttpEntity(method, url, headers, requestEntity);
-			result = EntityUtils.toString(responseEntity);
+			if (responseEntity != null) {
+				result = EntityUtils.toString(responseEntity);
+			}
 		} catch (ClientProtocolException e) {
 			throw new SentenialException(format("Failed request [url: %s]", url), e);
 		} catch (IOException e) {
