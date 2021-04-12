@@ -1,6 +1,6 @@
-# NuaPay REST Client DEPRECATED
+# NuaPay REST Client (DEPRECATED)
 
-# DEPRECATED
+# DEPRECATED PROJECT DO NOT USE
 This code is no longer maintained please generate client code by using swagger code gen off our swagger specification.
 
 ### Requirements
